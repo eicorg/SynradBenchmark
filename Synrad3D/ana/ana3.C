@@ -1,5 +1,6 @@
 void ana3(	TString _inputFileName = "./output/synrad3d_converted.root",
-		TString _outputFileName = "./output/output_all.root")
+		TString _outputFileName = "./output/output_all.root",
+		Float_t E_min_eV = 30.0)
 {
 	TString treeName = "tree";
 	TH1F* _h1;
@@ -7,6 +8,15 @@ void ana3(	TString _inputFileName = "./output/synrad3d_converted.root",
 	TH2F* _h21;
 	TH2F* _h3x;
 	TH2F* _h3y;
+
+	// vertex
+	TH1F* h1_vtx;
+	TH1F* h2_vtx;
+	TH1F* h3_vtx;
+	TH1F* h4_vtx;
+	TH1F* h5_vtx;
+	TH1F* h6_vtx;
+	TH1F* h7_vtx;
 
 	// for benchmark/debug
 	TH1D*	h1_ene;	
@@ -83,13 +93,22 @@ void ana3(	TString _inputFileName = "./output/synrad3d_converted.root",
 	_h3y = new TH2F("h3y","SR photon vertex position;Z_{vtx} [cm];Y_{vtx} [cm]",7000,-1000,6000,2000,-100,100);
 	_h21 = new TH2F("h21","SR photon position vs energy;Z_{#gamma} [cm];X_{#gamma} [cm];E_{#gamma} [eV]",7000,-1000,6000,2000,-100,100);
 
+	// vertex
+	h1_vtx = new TH1F("h1_vtx","Vertex SR photon energy;E_{#gamma} [eV];# of photons",1e6,0,1e6);
+	h2_vtx = new TH1F("h2_vtx","Vertex SR photon position X;X_{#gamma} [cm];Flux [ph/s]",2000,-100,100);
+	h3_vtx = new TH1F("h3_vtx","Vertex SR photon position Y;Y_{#gamma} [cm];Flux [ph/s]",2000,-100,100);
+	h4_vtx = new TH1F("h4_vtx","Vertex SR photon position Z;Z_{#gamma} [cm];Flux [ph/s]",7000,-1000,6000);
+	h5_vtx = new TH1F("h5_vtx","Vertex SR photon direction X;Px_{#gamma}/E_{#gamma};Flux [ph/s]",4e6,-2,2);
+	h6_vtx = new TH1F("h6_vtx","Vertex SR photon direction Y;Py_{#gamma}/E_{#gamma};Flux [ph/s]",4e6,-2,2);
+	h7_vtx = new TH1F("h7_vtx","Vertex SR photon direction Z;Pz_{#gamma}/E_{#gamma};Flux [ph/s]",4e6,-2,2);
+
 	// for benchmark/debug
 	h1_ene = new TH1D("h1_ene","SR photon spectrum;E_{#gamma} [eV];Flux [ph/s]",1e6,0,1e6);
 	h1_dirx = new TH1D("h1_dirx","SR photon momDir X; Px_{#gamma}/E_{#gamma};Flux [ph/s]",4e6,-2,2);
 	h1_diry = new TH1D("h1_diry","SR photon momDir Y; Py_{#gamma}/E_{#gamma};Flux [ph/s]",4e6,-2,2);
 	h1_dirz = new TH1D("h1_dirz","SR photon momDir Z; Pz_{#gamma}/E_{#gamma};Flux [ph/s]",4e6,-2,2);
-	h1_posx = new TH1D("h1_posx","SR photon position X; X_{#gamma} [cm];Flux [ph/s]",200,-100,100);
-	h1_posy = new TH1D("h1_posy","SR photon position Y; Y_{#gamma} [cm];Flux [ph/s]",200,-100,100);
+	h1_posx = new TH1D("h1_posx","SR photon position X; X_{#gamma} [cm];Flux [ph/s]",2000,-100,100);
+	h1_posy = new TH1D("h1_posy","SR photon position Y; Y_{#gamma} [cm];Flux [ph/s]",2000,-100,100);
 	h1_posz = new TH1D("h1_posz","SR photon position Z; Z_{#gamma} [cm];Flux [ph/s]",7000,-1000,6000);
 	h1_ene_dirx = 
 		new TH2D("h1_ene_dirx",
@@ -116,6 +135,13 @@ void ana3(	TString _inputFileName = "./output/synrad3d_converted.root",
 		// load the entry
 		fChain->GetEntry(jentry);
 
+		// cut low energy photons
+		if(ene < E_min_eV)
+		{
+			jentry++;
+			continue;
+		}
+
 		x_ini *= 1e2; // m -> cm
 		y_ini *= 1e2; // m -> cm
 		z_ini *= 1e2; // m -> cm
@@ -128,8 +154,7 @@ void ana3(	TString _inputFileName = "./output/synrad3d_converted.root",
            	 	printf("\r[INFO] Progress: %.3f [%%]",100.0*jentry/nEntries);
             		fflush(stdout);
         	}
-		jentry++;
-		
+		//---------------------------------------------------------------------------
 		// for benchmark/debug
 		if(	40e2 < z_fin && z_fin < 45e2	) // around the IP
 		{
@@ -145,12 +170,22 @@ void ana3(	TString _inputFileName = "./output/synrad3d_converted.root",
 			h1_ene_dirz->Fill(vz_fin,ene*weight);
 		}
 		//---------------------------------------------------------------------------
+		// vertex
+		h1_vtx->Fill(ene,weight);
+		h2_vtx->Fill(x_ini,weight);
+		h3_vtx->Fill(y_ini,weight);
+		h4_vtx->Fill(z_ini,weight);
+		h5_vtx->Fill(vx_ini,weight);
+		h6_vtx->Fill(vy_ini,weight);
+		h7_vtx->Fill(vz_ini,weight);
+		//---------------------------------------------------------------------------
 		// fill histograms
 		_h1->Fill(ene,weight);
 		_h2->Fill(z_fin,x_fin,weight);
 		_h21->Fill(z_fin,x_fin,ene*weight);
 		_h3x->Fill(z_ini,x_ini,weight);
 		_h3y->Fill(z_ini,y_ini,weight);
+		jentry++;
    	}
  	printf("\r[INFO] Progress: %.3f [%%]\n",100.0*jentry/nEntries);
 
@@ -161,6 +196,14 @@ void ana3(	TString _inputFileName = "./output/synrad3d_converted.root",
 	_h3x->Write();
 	_h3y->Write();
 	_h21->Write();
+	// vertex
+	h1_vtx->Write();
+	h2_vtx->Write();
+	h3_vtx->Write();
+	h4_vtx->Write();
+	h5_vtx->Write();
+	h6_vtx->Write();
+	h7_vtx->Write();
 	// for benchmark/debug
 	h1_ene->Write();
 	h1_dirx->Write();

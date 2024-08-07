@@ -141,12 +141,12 @@ void DetectorConstruction::CreateBeamPipeSolid()
 	//====================================//
 	//============== DRIFTS ==============//
 	//====================================//
-	G4Box* drift1_box = new G4Box("drift1_box",50*mm,50*mm,D1_L/2.);
-	G4VSolid* drift2_box = new G4Box("drift2_box",50*mm,50*mm,10*m/2.);
-	G4Trd* drift2_trd1 = new G4Trd("drift2_trd1",50*mm,40*mm,50*mm,40*mm,5*m/2.);
-	G4Box* drift2_box2 = new G4Box("drift2_box2",40*mm,40*mm,5*m/2.);
-	G4Trd* drift2_trd3 = new G4Trd("drift2_trd3",40*mm,20*mm,40*mm,20*mm,5*m/2.);
-	G4Box* drift2_box4 = new G4Box("drift2_box4",20*mm,20*mm,15*m/2.);
+	G4Box* drift1_box = new G4Box("drift1_box",50*mm/2.,50*mm/2.,D1_L/2.);
+	G4VSolid* drift2_box = new G4Box("drift2_box",50*mm/2.,50*mm/2.,10*m/2.);
+	G4Trd* drift2_trd1 = new G4Trd("drift2_trd1",50*mm/2.,40*mm/2.,50*mm/2.,40*mm/2.,5*m/2.);
+	G4Box* drift2_box2 = new G4Box("drift2_box2",40*mm/2.,40*mm/2.,5*m/2.);
+	G4Trd* drift2_trd3 = new G4Trd("drift2_trd3",40*mm/2.,20*mm/2.,40*mm/2.,20*mm/2.,5*m/2.);
+	G4Box* drift2_box4 = new G4Box("drift2_box4",20*mm/2.,20*mm/2.,15*m/2.);
 
 	drift2_box = new G4UnionSolid("drift2_uni",
 		drift2_box,drift2_trd1,0,G4ThreeVector(0,0,10*m/2.+5*m/2.));
@@ -202,7 +202,7 @@ void DetectorConstruction::CreateBeamPipeSolid()
 	//====================================//
 	//============== DIPOLE ==============//
 	//====================================//
-	G4Tubs* dipole_tube = new G4Tubs("dipole_tube",B1_R-50*mm,B1_R+50*mm,50*mm,0,B1_A);
+	G4Tubs* dipole_tube = new G4Tubs("dipole_tube",B1_R-50*mm/2.,B1_R+50*mm/2.,50*mm/2.,0,B1_A);
 
 	// magnet logic volume
 	G4LogicalVolume* dipole_log = new G4LogicalVolume(dipole_tube,mat_vac,"dipole_log");

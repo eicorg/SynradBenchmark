@@ -1,6 +1,12 @@
+*.swp
 *.root
 *.dat
+*.dat-e
 .DS_Store
 build
 *.png
 *.txt
+*.csv
+*.digested*
+*.pdf
+*.gp

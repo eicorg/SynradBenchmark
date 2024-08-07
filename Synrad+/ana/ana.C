@@ -90,13 +90,16 @@ void readSynRadData(TString inputFileName)
 
 	for(Int_t i = 0; i < Energy_eV.size(); i++)
 	{
-		h1_ene->Fill(Energy_eV.at(i),Flux_phs.at(i));
-		h1_posx->Fill(Pos_X_cm.at(i),Flux_phs.at(i));
-		h1_posy->Fill(Pos_Y_cm.at(i),Flux_phs.at(i));
-		h1_posz->Fill(Pos_Z_cm.at(i),Flux_phs.at(i));
-		h1_dirx->Fill(Dir_X.at(i),Flux_phs.at(i));
-		h1_diry->Fill(Dir_Y.at(i),Flux_phs.at(i));
-		h1_dirz->Fill(Dir_Z.at(i),Flux_phs.at(i));
+		if(40e2 < Pos_Z_cm.at(i) && Pos_Z_cm.at(i) < 45e2)
+		{
+			h1_ene->Fill(Energy_eV.at(i),Flux_phs.at(i));
+			h1_posx->Fill(Pos_X_cm.at(i),Flux_phs.at(i));
+			h1_posy->Fill(Pos_Y_cm.at(i),Flux_phs.at(i));
+			h1_posz->Fill(Pos_Z_cm.at(i),Flux_phs.at(i));
+			h1_dirx->Fill(Dir_X.at(i),Flux_phs.at(i));
+			h1_diry->Fill(Dir_Y.at(i),Flux_phs.at(i));
+			h1_dirz->Fill(Dir_Z.at(i),Flux_phs.at(i));
+		}
 	}
 
 	return;

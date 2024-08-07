@@ -7,7 +7,7 @@ date;
 #--------------------------------------------------#
 #---------------- INPUT PARAMETERS ----------------#
 xmlFile="${PWD}/geometry/setup.xml" # simulation geometry settings
-nParticles=1000 # number of primary particles per job
+nParticles=1000000 # number of primary particles per job
 outputDir="${PWD}/output" # output directory
 nJobs=10
 #--------------------------------------------------#

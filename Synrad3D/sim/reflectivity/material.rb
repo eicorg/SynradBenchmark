@@ -1,4 +1,4 @@
-$substrate = "SS" # Chemical formula
+$substrate = "Cu" # Chemical formula
 
 $layer = "Cu" # Chemical formula
 $layerThickness = 30e3 # nm

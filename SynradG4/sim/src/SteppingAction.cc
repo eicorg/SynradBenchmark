@@ -191,8 +191,6 @@ void SteppingAction::UserSteppingAction(const G4Step *step)
 			G4cout<<"==================================================================\n"<<G4endl;
 			return;
 		}
-		// do not store in absorbers
-		if(G4StrUtil::contains(postStep->GetPhysicalVolume()->GetName(),"abs_")){return;}
 
 		runAction->_gammaVtxPosX.push_back(track->GetVertexPosition().getX()/cm);
 		runAction->_gammaVtxPosY.push_back(track->GetVertexPosition().getY()/cm);

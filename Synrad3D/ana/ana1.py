@@ -79,18 +79,6 @@ def xys_to_xyz(x,y,s,v):
 	return x_new, y_new, z_new, v_new
 
 #---------------------------------------------------------------------------------------#
-# Read photon track file into dataframe
-data_trks = pd.read_csv(	
-	fTrackName,
-	sep='\s+',
-	names=[	"phIndx", 		# Photon index
-		"genIndx", 		# Generated photon index
-		"x","y","s", 		# Coordinates of photon
-		"ix_branch", 		# Index of lattice branch photon is in
-		"vx", "vy", "vs" 	# Velocity of the photon
-	]
-)
-#---------------------------------------------------------------------------------------#
 # Read photon hit file into dataframe
 photon_number_factor = 0
 num_photons_generated = 0
@@ -165,6 +153,19 @@ if not draw:
 	print('Output file name: ',fOutName)
 	# Stop program
 	exit()	
+
+#---------------------------------------------------------------------------------------#
+# Read photon track file into dataframe
+data_trks = pd.read_csv(	
+	fTrackName,
+	sep='\s+',
+	names=[	"phIndx", 		# Photon index
+		"genIndx", 		# Generated photon index
+		"x","y","s", 		# Coordinates of photon
+		"ix_branch", 		# Index of lattice branch photon is in
+		"vx", "vy", "vs" 	# Velocity of the photon
+	]
+)
 #---------------------------------------------------------------------------------------#
 # Create the scatter plot
 fig, ax = plt.subplots(2, 1,figsize=(8,8))

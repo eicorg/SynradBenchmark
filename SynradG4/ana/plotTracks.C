@@ -144,6 +144,7 @@ void getStoredTracks(const string outputfile)
 
 	for(Int_t i = 0; i < _fileNames.size(); i++)
 	{
+		if(_fileNames.at(i).find("_all.root") != std::string::npos){continue;}
 		cout<<"File name: "<<_fileNames.at(i)<<endl;
 		fChain->AddFile(_fileNames.at(i).c_str());
 	}

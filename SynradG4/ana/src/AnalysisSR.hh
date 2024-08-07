@@ -140,6 +140,15 @@ private:
 	TH2F* _h21;
 	TH2F* _h3x;
 	TH2F* _h3y;
+	
+	// vertex
+	TH1F* h1_vtx;
+	TH1F* h2_vtx;
+	TH1F* h3_vtx;
+	TH1F* h4_vtx;
+	TH1F* h5_vtx;
+	TH1F* h6_vtx;
+	TH1F* h7_vtx;
 
 	// for benchmark/debug
 	TH1D*	h1_ene;	

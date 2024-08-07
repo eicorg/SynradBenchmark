@@ -103,19 +103,28 @@ void AnalysisSR::Init(TString treeName = "tree")
 
 	_fChain->GetEntry(0);
 	// histograms
-	_h1 = new TH1F("h1","SR photon energy;E_{#gamma} [eV];# of photons",101000,-1000,100000);
+	_h1 = new TH1F("h1","SR photon energy;E_{#gamma} [eV];# of photons",1e6,0,1e6);
 	_h2 = new TH2F("h2","SR photon position;Z_{#gamma} [cm];X_{#gamma} [cm]",7000,-1000,6000,2000,-100,100);
 	_h3x = new TH2F("h3x","SR photon vertex position;Z_{vtx} [cm];X_{vtx} [cm]",7000,0,-1000,2000,-100,100);
 	_h3y = new TH2F("h3y","SR photon vertex position;Z_{vtx} [cm];Y_{vtx} [cm]",7000,-1000,6000,2000,-100,100);
 	_h21 = new TH2F("h21","SR photon position vs energy;Z_{#gamma} [cm];X_{#gamma} [cm];E_{#gamma} [eV]",7000,-1000,6000,2000,-100,100);
+
+	// vertex
+	h1_vtx = new TH1F("h1_vtx","Vertex SR photon energy;E_{#gamma} [eV];# of photons",1e6,0,1e6);
+	h2_vtx = new TH1F("h2_vtx","Vertex SR photon position X;X_{#gamma} [cm];Flux [ph/s]",2000,-100,100);
+	h3_vtx = new TH1F("h3_vtx","Vertex SR photon position Y;Y_{#gamma} [cm];Flux [ph/s]",2000,-100,100);
+	h4_vtx = new TH1F("h4_vtx","Vertex SR photon position Z;Z_{#gamma} [cm];Flux [ph/s]",7000,-1000,6000);
+	h5_vtx = new TH1F("h5_vtx","Vertex SR photon direction X;Px_{#gamma}/E_{#gamma};Flux [ph/s]",4e6,-2,2);
+	h6_vtx = new TH1F("h6_vtx","Vertex SR photon direction Y;Py_{#gamma}/E_{#gamma};Flux [ph/s]",4e6,-2,2);
+	h7_vtx = new TH1F("h7_vtx","Vertex SR photon direction Z;Pz_{#gamma}/E_{#gamma};Flux [ph/s]",4e6,-2,2);
 
 	// for benchmark/debug
 	h1_ene = new TH1D("h1_ene","SR photon spectrum;E_{#gamma} [eV];Flux [ph/s]",1e6,0,1e6);
 	h1_dirx = new TH1D("h1_dirx","SR photon momDir X; Px_{#gamma}/E_{#gamma};Flux [ph/s]",4e6,-2,2);
 	h1_diry = new TH1D("h1_diry","SR photon momDir Y; Py_{#gamma}/E_{#gamma};Flux [ph/s]",4e6,-2,2);
 	h1_dirz = new TH1D("h1_dirz","SR photon momDir Z; Pz_{#gamma}/E_{#gamma};Flux [ph/s]",4e6,-2,2);
-	h1_posx = new TH1D("h1_posx","SR photon position X; X_{#gamma} [cm];Flux [ph/s]",200,-100,100);
-	h1_posy = new TH1D("h1_posy","SR photon position Y; Y_{#gamma} [cm];Flux [ph/s]",200,-100,100);
+	h1_posx = new TH1D("h1_posx","SR photon position X; X_{#gamma} [cm];Flux [ph/s]",2000,-100,100);
+	h1_posy = new TH1D("h1_posy","SR photon position Y; Y_{#gamma} [cm];Flux [ph/s]",2000,-100,100);
 	h1_posz = new TH1D("h1_posz","SR photon position Z; Z_{#gamma} [cm];Flux [ph/s]",7000,-1000,6000);
 	h1_ene_dirx = 
 		new TH2D("h1_ene_dirx",
@@ -159,6 +168,7 @@ void AnalysisSR::Loop()
 		// loop over SR photons
 		for(Int_t i = 0; i < gammaEnergy_eV->size(); i++)
 		{
+			//---------------------------------------------------------------------------
 			// for benchmark/debug
 			if(	40e2 < gammaPosZ_cm->at(i) && gammaPosZ_cm->at(i) < 45e2	) // around the IP
 			{
@@ -178,6 +188,15 @@ void AnalysisSR::Loop()
 			}
 			
 			//---------------------------------------------------------------------------
+			// vertex
+			h1_vtx->Fill(gammaEnergy_eV->at(i));
+			h2_vtx->Fill(gammaVtxPosX_cm->at(i));
+			h3_vtx->Fill(gammaVtxPosY_cm->at(i));
+			h4_vtx->Fill(gammaVtxPosZ_cm->at(i));
+			h5_vtx->Fill(gammaVtxDirX->at(i));
+			h6_vtx->Fill(gammaVtxDirY->at(i));
+			h7_vtx->Fill(gammaVtxDirZ->at(i));
+			//---------------------------------------------------------------------------
 			// fill histograms
 			_h1->Fill(gammaEnergy_eV->at(i));
 			_h2->Fill(gammaPosZ_cm->at(i),gammaPosX_cm->at(i));
@@ -195,6 +214,14 @@ void AnalysisSR::Loop()
 	_h3x->Write();
 	_h3y->Write();
 	_h21->Write();
+	// vertex
+	h1_vtx->Write();
+	h2_vtx->Write();
+	h3_vtx->Write();
+	h4_vtx->Write();
+	h5_vtx->Write();
+	h6_vtx->Write();
+	h7_vtx->Write();
 	// for benchmark/debug
 	h1_ene->Write();
 	h1_dirx->Write();

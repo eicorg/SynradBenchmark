@@ -4,23 +4,23 @@
 
 &shape_def
   name = "rectangular1"
-  v(1) = 0.05, 0.05
+  v(1) = 0.025, 0.025
 /
 
 &shape_def
   name = "rectangular2"
-  v(1) = 0.04, 0.04
+  v(1) = 0.020, 0.020
 /
 
 &shape_def
   name = "rectangular3"
-  v(1) = 0.02, 0.02
+  v(1) = 0.010, 0.010
 /
 
 
 ! This defines the surface.
 &surface_def
-	reflectivity_file = 'reflectivity/SS_30000.0nmCu.dat'
+	reflectivity_file = 'reflectivity/Cu_30000.0nmCu.dat'
 /
 
 &place section = 0,	'rec1', 'rectangular1' /
