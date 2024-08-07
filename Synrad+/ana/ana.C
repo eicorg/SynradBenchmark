@@ -14,304 +14,37 @@ vector<Double_t> Flux_phs;
 vector<Double_t> Power_W;
 
 void readCSVfile(TString fName);
-void readSynRadData(TString inputFileName, TH1D* h1_ene, TH1D* h1_dirx, TH1D* h1_diry, TH1D* h1_dirz, TH1D* h1_posx, TH1D* h1_posy, TH1D* h1_posz);
-void getSynRadData(TString outputFileName = "synrad_data.root");
+void readSynRadData(TString inputFileName);
+void getFileList(TString fName);
 
-const Double_t beamCurrent_A = 0.227;
-const Double_t nElectrons_g4 = 10*1e5; // 10 files x 1e5 e-/file
+vector<TString> fList;
+const Double_t beamCurrent_A = 1.0;
 
-//void compareSpectrum_2(TString fName = "28755_2400s_noLowFlux.csv")
-//void compareSpectrum_2(TString fName = "28755_2400s_noLowFlux_newModel.csv")
-//void compareSpectrum_2(TString fName = "28755_2400s.csv")
+TH1D* h1_ene = new TH1D("h1_ene","SR photon spectrum;E_{#gamma} [eV];Flux [ph/s]",1e6,0,1e6); 
+TH1D* h1_dirx = new TH1D("h1_dirx","SR photon momentum X; Px_{#gamma}/E_{#gamma};Flux [ph/s]",4e6,-2,2); 
+TH1D* h1_diry = new TH1D("h1_diry","SR photon momentum Y; Py_{#gamma}/E_{#gamma};Flux [ph/s]",4e6,-2,2); 
+TH1D* h1_dirz = new TH1D("h1_dirz","SR photon momentum Z; Pz_{#gamma}/E_{#gamma};Flux [ph/s]",4e6,-2,2); 
+TH1D* h1_posx = new TH1D("h1_posx","SR photon position X; X_{#gamma} [eV];Flux [ph/s]",2000,-100,100);  
+TH1D* h1_posy = new TH1D("h1_posy","SR photon position Y; Y_{#gamma} [eV];Flux [ph/s]",2000,-100,100); 
+TH1D* h1_posz = new TH1D("h1_posz","SR photon position Z; Z_{#gamma} [eV];Flux [ph/s]",7000,-1000,6000);
 
-TH2D* _h1_cut_sr = new TH2D("_h1_cut_sr","Synrad+ Data;#theta_{graz} [rad];E_{#gamma} [eV]",3e3,0.0,0.03,7e3,0,7e4);
-
-void compareSpectrum_2()
+void ana(	TString outputFileName = "./output/output_all.root", 
+		TString fListName = "fileList.txt")
 {
-	const Double_t minE_eV =  0.00, maxE_eV =  20e3;
-	const Double_t minDirx = -0.13, maxDirx =  0.01;
-	const Double_t minDiry = -0.02, maxDiry =  0.02;
-	const Double_t minDirz =  0.95, maxDirz =  1.01;
-	const Double_t minX_eV = -5.02, maxX_eV = -4.90;
-	const Double_t minY_eV = -1.00, maxY_eV =  1.00;
-	const Double_t minZ_eV = -3400, maxZ_eV = -2300;
+	// Get the list of input files
+	getFileList(fListName);
 
-	gStyle->SetOptStat(0);
+	for(auto &name: fList){readSynRadData(name);}
 
-	//-- read the csv file
-	// getSynRadData("synrad_data.root"); 
-	// _h1_cut_sr->SaveAs("h1_cut_sr.root");
-	// return;
-
-	// get synrad+ data
-	TFile *file_sr = TFile::Open("synrad_data.root");
-	TH1D* h1_ene_sr = (TH1D*)file_sr->Get("h1_ene_sr");
-	TH1D* h1_dirx_sr = (TH1D*)file_sr->Get("h1_dirx_sr");
-	TH1D* h1_diry_sr = (TH1D*)file_sr->Get("h1_diry_sr");
-	TH1D* h1_dirz_sr = (TH1D*)file_sr->Get("h1_dirz_sr");
-	TH1D* h1_posx_sr = (TH1D*)file_sr->Get("h1_posx_sr");
-	TH1D* h1_posy_sr = (TH1D*)file_sr->Get("h1_posy_sr");
-	TH1D* h1_posz_sr = (TH1D*)file_sr->Get("h1_posz_sr");
-
-	// get geant4 data
-	TFile *file_g4 = TFile::Open("geant4_data.root");
-	TH1D* h1_ene_g4 = (TH1D*)file_g4->Get("h1_ene_g4");
-	TH1D* h1_dirx_g4 = (TH1D*)file_g4->Get("h1_dirx_g4");
-	TH1D* h1_diry_g4 = (TH1D*)file_g4->Get("h1_diry_g4");
-	TH1D* h1_dirz_g4 = (TH1D*)file_g4->Get("h1_dirz_g4");
-	TH1D* h1_posx_g4 = (TH1D*)file_g4->Get("h1_posx_g4");
-	TH1D* h1_posy_g4 = (TH1D*)file_g4->Get("h1_posy_g4");
-	TH1D* h1_posz_g4 = (TH1D*)file_g4->Get("h1_posz_g4");
-
-	// scale geant4 -> synrad
-	h1_ene_g4->Scale(beamCurrent_A/(nElectrons_g4*TMath::Qe()));
-	h1_dirx_g4->Scale(beamCurrent_A/(nElectrons_g4*TMath::Qe()));
-	h1_diry_g4->Scale(beamCurrent_A/(nElectrons_g4*TMath::Qe()));
-	h1_dirz_g4->Scale(beamCurrent_A/(nElectrons_g4*TMath::Qe()));
-	h1_posx_g4->Scale(beamCurrent_A/(nElectrons_g4*TMath::Qe()));
-	h1_posy_g4->Scale(beamCurrent_A/(nElectrons_g4*TMath::Qe()));
-	h1_posz_g4->Scale(beamCurrent_A/(nElectrons_g4*TMath::Qe()));
-
-	//=========================================================================================//
-	// plot data
-	TCanvas* c0 = new TCanvas("c0","c0",900,900);
-	c0->cd();
-
-	h1_ene_sr->Rebin(100);
-	h1_ene_g4->Rebin(100);
-	cout<<"h1_ene_sr bin width = "<<h1_ene_sr->GetXaxis()->GetBinWidth(1)<<" [eV]"<<endl;
-	cout<<"h1_ene_g4 bin width = "<<h1_ene_g4->GetXaxis()->GetBinWidth(1)<<" [eV]"<<endl;
-
-	h1_ene_sr->SetLineWidth(3);
-	h1_ene_g4->SetLineWidth(1);
-	h1_ene_sr->SetLineColor(kBlack);
-	h1_ene_g4->SetLineColor(kRed);
-	h1_ene_g4->SetFillColorAlpha(kRed,0.2);
-
-	h1_ene_sr->GetXaxis()->SetRangeUser(minE_eV,maxE_eV);
-	h1_ene_sr->SetMinimum(1e15);
-	h1_ene_sr->SetMaximum(1e19);
-
-	h1_ene_sr->Draw("HIST");
-	h1_ene_g4->Draw("SAME & HIST");
-
-	TLegend* leg0 = new TLegend(0.6,0.7,0.9,0.9);
-	leg0->AddEntry(h1_ene_sr,"Synrad+","f");
-	leg0->AddEntry(h1_ene_g4,"Geant4","f");
-	leg0->Draw();
-
-	gPad->SetGrid();
-	gPad->SetLogy();
-
-	c0->SaveAs("c0.png");
-
-	//=========================================================================================//
-	TCanvas* c1 = new TCanvas("c1","c1",1800,900);
-	c1->Divide(3,2);
-
-	//-- dirx
-	c1->cd(1);
-
-	h1_dirx_sr->Rebin(10);
-	h1_dirx_g4->Rebin(10);
-	cout<<"h1_dirx_sr bin width = "<<h1_dirx_sr->GetXaxis()->GetBinWidth(1)<<" [eV]"<<endl;
-	cout<<"h1_dirx_g4 bin width = "<<h1_dirx_g4->GetXaxis()->GetBinWidth(1)<<" [eV]"<<endl;
-
-	h1_dirx_sr->SetLineWidth(3);
-	h1_dirx_g4->SetLineWidth(1);
-	h1_dirx_sr->SetLineColor(kBlack);
-	h1_dirx_g4->SetLineColor(kRed);
-	h1_dirx_g4->SetFillColorAlpha(kRed,0.2);
-
-	h1_dirx_sr->GetXaxis()->SetRangeUser(minDirx,maxDirx);
-	h1_dirx_sr->SetMinimum(1e11);
-	h1_dirx_sr->SetMaximum(1e16);
-
-	h1_dirx_sr->Draw("HIST");
-	h1_dirx_g4->Draw("SAME & HIST");
-
-	TLegend* leg_dirx = new TLegend(0.2,0.7,0.5,0.9);
-	leg_dirx->AddEntry(h1_dirx_sr,"Synrad+","f");
-	leg_dirx->AddEntry(h1_dirx_g4,"Geant4","f");
-	leg_dirx->Draw();
-
-	gPad->SetGrid();
-	gPad->SetLogy();
-
-	//-- diry
-	c1->cd(2);
-
-	h1_diry_sr->Rebin(10);
-	h1_diry_g4->Rebin(10);
-	cout<<"h1_diry_sr bin width = "<<h1_diry_sr->GetXaxis()->GetBinWidth(1)<<" [eV]"<<endl;
-	cout<<"h1_diry_g4 bin width = "<<h1_diry_g4->GetXaxis()->GetBinWidth(1)<<" [eV]"<<endl;
-
-	h1_diry_sr->SetLineWidth(3);
-	h1_diry_g4->SetLineWidth(1);
-	h1_diry_sr->SetLineColor(kBlack);
-	h1_diry_g4->SetLineColor(kRed);
-	h1_diry_g4->SetFillColorAlpha(kRed,0.2);
-
-	h1_diry_sr->GetXaxis()->SetRangeUser(minDiry,maxDiry);
-	h1_diry_sr->SetMinimum(1e11);
-	h1_diry_sr->SetMaximum(1e19);
-
-	h1_diry_sr->Draw("HIST");
-	h1_diry_g4->Draw("SAME & HIST");
-
-	TLegend* leg_diry = new TLegend(0.6,0.7,0.9,0.9);
-	leg_diry->AddEntry(h1_diry_sr,"Synrad+","f");
-	leg_diry->AddEntry(h1_diry_g4,"Geant4","f");
-	leg_diry->Draw();
-
-	gPad->SetGrid();
-	gPad->SetLogy();
-
-	//-- dirz
-	c1->cd(3);
-
-	h1_dirz_sr->Rebin(100);
-	h1_dirz_g4->Rebin(100);
-	cout<<"h1_dirz_sr bin width = "<<h1_dirz_sr->GetXaxis()->GetBinWidth(1)<<" [eV]"<<endl;
-	cout<<"h1_dirz_g4 bin width = "<<h1_dirz_g4->GetXaxis()->GetBinWidth(1)<<" [eV]"<<endl;
-
-	h1_dirz_sr->SetLineWidth(3);
-	h1_dirz_g4->SetLineWidth(1);
-	h1_dirz_sr->SetLineColor(kBlack);
-	h1_dirz_g4->SetLineColor(kRed);
-	h1_dirz_g4->SetFillColorAlpha(kRed,0.2);
-
-	h1_dirz_sr->GetXaxis()->SetRangeUser(minDirz,maxDirz);
-	h1_dirz_sr->SetMinimum(1e11);
-	h1_dirz_sr->SetMaximum(1e22);
-
-	h1_dirz_sr->Draw("HIST");
-	h1_dirz_g4->Draw("SAME & HIST");
-
-	TLegend* leg_dirz = new TLegend(0.6,0.7,0.9,0.9);
-	leg_dirz->AddEntry(h1_dirz_sr,"Synrad+","f");
-	leg_dirz->AddEntry(h1_dirz_g4,"Geant4","f");
-	leg_dirz->Draw();
-
-	gPad->SetGrid();
-	gPad->SetLogy();
-
-	//-- posx
-	c1->cd(4);
-
-	h1_posx_sr->Rebin(1);
-	h1_posx_g4->Rebin(1);
-	cout<<"h1_posx_sr bin width = "<<h1_posx_sr->GetXaxis()->GetBinWidth(1)<<" [eV]"<<endl;
-	cout<<"h1_posx_g4 bin width = "<<h1_posx_g4->GetXaxis()->GetBinWidth(1)<<" [eV]"<<endl;
-
-	h1_posx_sr->SetLineWidth(3);
-	h1_posx_g4->SetLineWidth(1);
-	h1_posx_sr->SetLineColor(kBlack);
-	h1_posx_g4->SetLineColor(kRed);
-	h1_posx_g4->SetFillColorAlpha(kRed,0.2);
-
-	h1_posx_sr->GetXaxis()->SetRangeUser(minX_eV,maxX_eV);
-	h1_posx_sr->SetMinimum(1e11);
-	h1_posx_sr->SetMaximum(1e20);
-
-	h1_posx_sr->Draw("HIST");
-	h1_posx_g4->Draw("SAME & HIST");
-
-	TLegend* leg_posx = new TLegend(0.6,0.7,0.9,0.9);
-	leg_posx->AddEntry(h1_posx_sr,"Synrad+","f");
-	leg_posx->AddEntry(h1_posx_g4,"Geant4","f");
-	leg_posx->Draw();
-
-	gPad->SetGrid();
-	gPad->SetLogy();
-
-	//-- posy
-	c1->cd(5);
-
-	h1_posy_sr->Rebin(10);
-	h1_posy_g4->Rebin(10);
-	cout<<"h1_posy_sr bin width = "<<h1_posy_sr->GetXaxis()->GetBinWidth(1)<<" [eV]"<<endl;
-	cout<<"h1_posy_g4 bin width = "<<h1_posy_g4->GetXaxis()->GetBinWidth(1)<<" [eV]"<<endl;
-
-	h1_posy_sr->SetLineWidth(3);
-	h1_posy_g4->SetLineWidth(1);
-	h1_posy_sr->SetLineColor(kBlack);
-	h1_posy_g4->SetLineColor(kRed);
-	h1_posy_g4->SetFillColorAlpha(kRed,0.2);
-
-	h1_posy_sr->GetXaxis()->SetRangeUser(minY_eV,maxY_eV);
-	h1_posy_sr->SetMinimum(1e11);
-	h1_posy_sr->SetMaximum(1e20);
-
-	h1_posy_sr->Draw("HIST");
-	h1_posy_g4->Draw("SAME & HIST");
-
-	TLegend* leg_posy = new TLegend(0.6,0.7,0.9,0.9);
-	leg_posy->AddEntry(h1_posy_sr,"Synrad+","f");
-	leg_posy->AddEntry(h1_posy_g4,"Geant4","f");
-	leg_posy->Draw();
-
-	gPad->SetGrid();
-	gPad->SetLogy();
-
-	//-- posz
-	c1->cd(6);
-
-	h1_posz_sr->Rebin(10);
-	h1_posz_g4->Rebin(10);
-	cout<<"h1_posz_sr bin width = "<<h1_posz_sr->GetXaxis()->GetBinWidth(1)<<" [eV]"<<endl;
-	cout<<"h1_posz_g4 bin width = "<<h1_posz_g4->GetXaxis()->GetBinWidth(1)<<" [eV]"<<endl;
-
-	h1_posz_sr->SetLineWidth(3);
-	h1_posz_g4->SetLineWidth(1);
-	h1_posz_sr->SetLineColor(kBlack);
-	h1_posz_g4->SetLineColor(kRed);
-	h1_posz_g4->SetFillColorAlpha(kRed,0.2);
-
-	h1_posz_sr->GetXaxis()->SetRangeUser(minZ_eV,maxZ_eV);
-	h1_posz_sr->SetMinimum(1e14);
-	h1_posz_sr->SetMaximum(1e17);
-
-	h1_posz_sr->Draw("HIST");
-	h1_posz_g4->Draw("SAME & HIST");
-
-	TLegend* leg_posz = new TLegend(0.6,0.7,0.9,0.9);
-	leg_posz->AddEntry(h1_posz_sr,"Synrad+","f");
-	leg_posz->AddEntry(h1_posz_g4,"Geant4","f");
-	leg_posz->Draw();
-
-	gPad->SetGrid();
-	gPad->SetLogy();
-
-	c1->SaveAs("c1.png");
-	//=========================================================================================//
-
-	return;
-}
-
-void getSynRadData(TString outputFileName = "synrad_data.root")
-{
 	TFile* file = new TFile(outputFileName.Data(),"recreate");
 	file->cd();
-
-	TH1D* h1_ene_sr = new TH1D("h1_ene_sr","SR photon spectrum;E_{#gamma} [eV];Flux [ph/s]",1e6,0,1e6); 
-	TH1D* h1_dirx_sr = new TH1D("h1_dirx_sr","SR photon momentum X; Px_{#gamma}/E_{#gamma};Flux [ph/s]",4e6,-2,2); 
-	TH1D* h1_diry_sr = new TH1D("h1_diry_sr","SR photon momentum Y; Py_{#gamma}/E_{#gamma};Flux [ph/s]",4e6,-2,2); 
-	TH1D* h1_dirz_sr = new TH1D("h1_dirz_sr","SR photon momentum Z; Pz_{#gamma}/E_{#gamma};Flux [ph/s]",4e6,-2,2); 
-	TH1D* h1_posx_sr = new TH1D("h1_posx_sr","SR photon position X; X_{#gamma} [eV];Flux [ph/s]",10000,-10,0);  
-	TH1D* h1_posy_sr = new TH1D("h1_posy_sr","SR photon position Y; Y_{#gamma} [eV];Flux [ph/s]",2000,-1,1); 
-	TH1D* h1_posz_sr = new TH1D("h1_posz_sr","SR photon position Z; Z_{#gamma} [eV];Flux [ph/s]",11000,-3400,-2300);
-
-	readSynRadData("28754_2400s.csv",h1_ene_sr,h1_dirx_sr,h1_diry_sr,h1_dirz_sr,h1_posx_sr,h1_posy_sr,h1_posz_sr);
-	readSynRadData("28755_2400s.csv",h1_ene_sr,h1_dirx_sr,h1_diry_sr,h1_dirz_sr,h1_posx_sr,h1_posy_sr,h1_posz_sr);
-
-	h1_ene_sr->Write();
-	h1_dirx_sr->Write();
-	h1_diry_sr->Write();
-	h1_dirz_sr->Write();
-	h1_posx_sr->Write();
-	h1_posy_sr->Write();
-	h1_posz_sr->Write();
+	h1_ene->Write();
+	h1_dirx->Write();
+	h1_diry->Write();
+	h1_dirz->Write();
+	h1_posx->Write();
+	h1_posy->Write();
+	h1_posz->Write();
 	file->Close();
 
 	cout<<"Output Synrad+ file name = "<<file->GetName()<<endl;
@@ -319,7 +52,23 @@ void getSynRadData(TString outputFileName = "synrad_data.root")
 	return;
 }
 
-void readSynRadData(TString inputFileName, TH1D* h1_ene, TH1D* h1_dirx, TH1D* h1_diry, TH1D* h1_dirz, TH1D* h1_posx, TH1D* h1_posy, TH1D* h1_posz)
+void getFileList(TString fName)
+{
+	string line;
+	fstream f;
+	f.open(fName.Data(),ios::in);
+	if(f.is_open())
+	{
+		while(getline(f,line)){fList.push_back(line);}
+		f.close();
+	}
+	// print the list of files
+	cout<<"[INFO] List of input files:"<<endl;
+	for(auto &name: fList){cout<<" - "<<name<<endl;}
+	return;
+}
+
+void readSynRadData(TString inputFileName)
 {
 	// clean data vectors
 	Pos_X_cm.clear();
@@ -349,13 +98,6 @@ void readSynRadData(TString inputFileName, TH1D* h1_ene, TH1D* h1_dirx, TH1D* h1
 		h1_dirx->Fill(Dir_X.at(i),Flux_phs.at(i));
 		h1_diry->Fill(Dir_Y.at(i),Flux_phs.at(i));
 		h1_dirz->Fill(Dir_Z.at(i),Flux_phs.at(i));
-
-		// cut
-		if(Dir_X.at(i) > -0.025 && Dir_X.at(i) < -0.005 
-			&& abs(Dir_Y.at(i)) < 0.00001)
-		{
-			_h1_cut_sr->Fill(TMath::PiOver2() - TMath::ACos(abs(Dir_X.at(i))),Energy_eV.at(i),Flux_phs.at(i));
-		}
 	}
 
 	return;
