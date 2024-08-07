@@ -18,7 +18,6 @@ void readSynRadData(TString inputFileName);
 void getFileList(TString fName);
 
 vector<TString> fList;
-const Double_t beamCurrent_A = 1.0;
 
 TH1D* h1_ene = new TH1D("h1_ene","SR photon spectrum;E_{#gamma} [eV];Flux [ph/s]",1e6,0,1e6); 
 TH1D* h1_dirx = new TH1D("h1_dirx","SR photon momentum X; Px_{#gamma}/E_{#gamma};Flux [ph/s]",4e6,-2,2); 

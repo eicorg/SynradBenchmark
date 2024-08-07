@@ -110,23 +110,23 @@ void AnalysisSR::Init(TString treeName = "tree")
 	_h21 = new TH2F("h21","SR photon position vs energy;Z_{#gamma} [cm];X_{#gamma} [cm];E_{#gamma} [eV]",7000,-1000,6000,2000,-100,100);
 
 	// for benchmark/debug
-	h1_ene = new TH1D("h1_ene_g4","SR photon spectrum;E_{#gamma} [eV];Flux [ph/s]",1e6,0,1e6);
-	h1_dirx = new TH1D("h1_dirx_g4","SR photon momDir X; Px_{#gamma}/E_{#gamma};Flux [ph/s]",4e6,-2,2);
-	h1_diry = new TH1D("h1_diry_g4","SR photon momDir Y; Py_{#gamma}/E_{#gamma};Flux [ph/s]",4e6,-2,2);
-	h1_dirz = new TH1D("h1_dirz_g4","SR photon momDir Z; Pz_{#gamma}/E_{#gamma};Flux [ph/s]",4e6,-2,2);
-	h1_posx = new TH1D("h1_posx_g4","SR photon position X; X_{#gamma} [cm];Flux [ph/s]",200,-100,100);
-	h1_posy = new TH1D("h1_posy_g4","SR photon position Y; Y_{#gamma} [cm];Flux [ph/s]",200,-100,100);
-	h1_posz = new TH1D("h1_posz_g4","SR photon position Z; Z_{#gamma} [cm];Flux [ph/s]",7000,-1000,6000);
+	h1_ene = new TH1D("h1_ene","SR photon spectrum;E_{#gamma} [eV];Flux [ph/s]",1e6,0,1e6);
+	h1_dirx = new TH1D("h1_dirx","SR photon momDir X; Px_{#gamma}/E_{#gamma};Flux [ph/s]",4e6,-2,2);
+	h1_diry = new TH1D("h1_diry","SR photon momDir Y; Py_{#gamma}/E_{#gamma};Flux [ph/s]",4e6,-2,2);
+	h1_dirz = new TH1D("h1_dirz","SR photon momDir Z; Pz_{#gamma}/E_{#gamma};Flux [ph/s]",4e6,-2,2);
+	h1_posx = new TH1D("h1_posx","SR photon position X; X_{#gamma} [cm];Flux [ph/s]",200,-100,100);
+	h1_posy = new TH1D("h1_posy","SR photon position Y; Y_{#gamma} [cm];Flux [ph/s]",200,-100,100);
+	h1_posz = new TH1D("h1_posz","SR photon position Z; Z_{#gamma} [cm];Flux [ph/s]",7000,-1000,6000);
 	h1_ene_dirx = 
-		new TH2D("h1_ene_dirx_g4",
+		new TH2D("h1_ene_dirx",
 		"SR photon energy vs momDir X;Px_{#gamma}/E_{#gamma};E_{#gamma} [eV];Flux [ph/s]",
 		4e3,-2,2,4e3,0,40e3);
 	h1_ene_diry = 
-		new TH2D("h1_ene_diry_g4",
+		new TH2D("h1_ene_diry",
 		"SR photon energy vs momDir Y;Py_{#gamma}/E_{#gamma};E_{#gamma} [eV];Flux [ph/s]",
 		4e3,-2,2,4e3,0,40e3);
 	h1_ene_dirz = 
-		new TH2D("h1_ene_dirz_g4",
+		new TH2D("h1_ene_dirz",
 		"SR photon energy vs momDir Z;Pz_{#gamma}/E_{#gamma};E_{#gamma} [eV];Flux [ph/s]",
 		4e3,-2,2,4e3,0,40e3);
 
