@@ -459,9 +459,9 @@ void compare(	TString fName_synradp = "../Synrad+/ana/output/output_all.root",
 	h2_dirx_synrad3d->SetFillColorAlpha(kBlue,0.2);
 	h2_dirx_synradg4->SetFillColorAlpha(kRed,0.2);
 
-	h2_dirx_synrad3d->GetXaxis()->SetRangeUser(-0.02,0);
+	h2_dirx_synrad3d->GetXaxis()->SetRangeUser(-0.015,0.005);
 	h2_dirx_synrad3d->SetMinimum(1e11);
-//	h2_dirx_synrad3d->SetMaximum(1e19);
+	h2_dirx_synrad3d->SetMaximum(1e20);
 
 	h2_dirx_synrad3d->Draw("HIST");
 	h2_dirx_synradg4->Draw("SAME & HIST");
@@ -493,9 +493,9 @@ void compare(	TString fName_synradp = "../Synrad+/ana/output/output_all.root",
 	h2_diry_synrad3d->SetFillColorAlpha(kBlue,0.2);
 	h2_diry_synradg4->SetFillColorAlpha(kRed,0.2);
 
-	h2_diry_synrad3d->GetXaxis()->SetRangeUser(-0.01,0.01);
+	h2_diry_synrad3d->GetXaxis()->SetRangeUser(-0.005,0.005);
 	h2_diry_synrad3d->SetMinimum(1e11);
-	h2_diry_synrad3d->SetMaximum(1e19);
+	h2_diry_synrad3d->SetMaximum(1e20);
 
 	h2_diry_synrad3d->Draw("HIST");
 	h2_diry_synradg4->Draw("SAME & HIST");
@@ -511,8 +511,8 @@ void compare(	TString fName_synradp = "../Synrad+/ana/output/output_all.root",
 	//-- dirz
 	c2->cd(3);
 
-	h2_dirz_synrad3d->Rebin(1000);
-	h2_dirz_synradg4->Rebin(1000);
+	h2_dirz_synrad3d->Rebin(10);
+	h2_dirz_synradg4->Rebin(10);
 	cout<<"[INFO] Z' binning:"<<endl;
 	cout<<" - h2_dirz_synrad3d bin width = "<<h2_dirz_synrad3d->GetXaxis()->GetBinWidth(1)<<" [eV]"<<endl;
 	cout<<" - h2_dirz_synradg4 bin width = "<<h2_dirz_synradg4->GetXaxis()->GetBinWidth(1)<<" [eV]"<<endl;
@@ -527,9 +527,9 @@ void compare(	TString fName_synradp = "../Synrad+/ana/output/output_all.root",
 	h2_dirz_synrad3d->SetFillColorAlpha(kBlue,0.2);
 	h2_dirz_synradg4->SetFillColorAlpha(kRed,0.2);
 
-	h2_dirz_synrad3d->GetXaxis()->SetRangeUser(0.9,1.02);
+	h2_dirz_synrad3d->GetXaxis()->SetRangeUser(0.9996,1.00005);
 	h2_dirz_synrad3d->SetMinimum(1e11);
-	h2_dirz_synrad3d->SetMaximum(1e19);
+	h2_dirz_synrad3d->SetMaximum(1e20);
 
 	h2_dirz_synrad3d->Draw("HIST");
 	h2_dirz_synradg4->Draw("SAME & HIST");
@@ -561,10 +561,10 @@ void compare(	TString fName_synradp = "../Synrad+/ana/output/output_all.root",
 	h2_posx_synradg4->SetFillColorAlpha(kBlue,0.2);
 	h2_posx_synradg4->SetFillColorAlpha(kRed,0.2);
 
-	h2_posx_synrad3d->GetXaxis()->SetRangeUser(-40,-30);
+	h2_posx_synrad3d->GetXaxis()->SetRangeUser(-3,1);
 	h2_posx_synrad3d->GetXaxis()->SetTitle("X_{#gamma} [cm]");
 	h2_posx_synrad3d->SetMinimum(1e11);
-	h2_posx_synrad3d->SetMaximum(1e20);
+	h2_posx_synrad3d->SetMaximum(1e22);
 
 	h2_posx_synrad3d->Draw("HIST");
 	h2_posx_synradg4->Draw("SAME & HIST");
@@ -596,10 +596,10 @@ void compare(	TString fName_synradp = "../Synrad+/ana/output/output_all.root",
 	h2_posy_synradg4->SetFillColorAlpha(kBlue,0.2);
 	h2_posy_synradg4->SetFillColorAlpha(kRed,0.2);
 
-	h2_posy_synrad3d->GetXaxis()->SetRangeUser(-1.5,1.5);
+	h2_posy_synrad3d->GetXaxis()->SetRangeUser(-0.5,0.5);
 	h2_posy_synrad3d->GetXaxis()->SetTitle("Y_{#gamma} [cm]");
 	h2_posy_synrad3d->SetMinimum(1e11);
-	h2_posy_synrad3d->SetMaximum(1e20);
+	h2_posy_synrad3d->SetMaximum(1e22);
 
 	h2_posy_synrad3d->Draw("HIST");
 	h2_posy_synradg4->Draw("SAME & HIST");
@@ -631,10 +631,10 @@ void compare(	TString fName_synradp = "../Synrad+/ana/output/output_all.root",
 	h2_posz_synradg4->SetFillColorAlpha(kBlue,0.2);
 	h2_posz_synradg4->SetFillColorAlpha(kRed,0.2);
 
-	h2_posz_synrad3d->GetXaxis()->SetRangeUser(39e2,46e2);
+	h2_posz_synrad3d->GetXaxis()->SetRangeUser(4e2,11e2);
 	h2_posz_synrad3d->GetXaxis()->SetTitle("Z_{#gamma} [cm]");
 	h2_posz_synrad3d->SetMinimum(1e11);
-	h2_posz_synrad3d->SetMaximum(1e20);
+	h2_posz_synrad3d->SetMaximum(1e22);
 
 	h2_posz_synrad3d->Draw("HIST");
 	h2_posz_synradg4->Draw("SAME & HIST");
