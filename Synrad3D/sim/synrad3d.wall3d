@@ -1,0 +1,32 @@
+!+
+! Example wall specification:
+!-
+
+&shape_def
+  name = "rectangular1"
+  v(1) = 0.05, 0.05
+/
+
+&shape_def
+  name = "rectangular2"
+  v(1) = 0.04, 0.04
+/
+
+&shape_def
+  name = "rectangular3"
+  v(1) = 0.02, 0.02
+/
+
+
+! This defines the surface.
+&surface_def
+	reflectivity_file = 'reflectivity/SS_30000.0nmCu.dat'
+/
+
+&place section = 0,	'rec1', 'rectangular1' /
+&place section = 20,	'rec2', 'rectangular1' /
+&place section = 25,  	'rec3', 'rectangular2' /
+&place section = 30,  	'rec4', 'rectangular2' /
+&place section = 35,  	'rec5', 'rectangular3' /
+&place section = 50, 	'rec6', 'rectangular3' /
+/

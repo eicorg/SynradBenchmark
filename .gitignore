@@ -1,0 +1,6 @@
+*.root
+*.dat
+.DS_Store
+build
+*.png
+*.txt

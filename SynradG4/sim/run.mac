@@ -1,0 +1,16 @@
+##-----------------------------------------##
+/run/verbose 1
+/event/verbose 0
+/tracking/verbose 0
+##-----------------------------------------##
+/output/filename ./output.root
+# Kill secondaries (i.e., SR photons)
+/stack/killsecondaries 0
+# Rebuild geometry with the given parameters
+/detector/ModifyGeometry
+
+
+/run/initialize
+##-----------------------------------------##
+/run/beamOn 1000
+##-----------------------------------------##
