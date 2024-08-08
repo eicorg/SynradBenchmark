@@ -26,6 +26,15 @@ void compare(	TString fName_synradp = "../Synrad+/ana/output/output_all.root",
 	TH1D* h1_posy_synradp = (TH1D*)file_synradp->Get("h1_posy");
 	TH1D* h1_posz_synradp = (TH1D*)file_synradp->Get("h1_posz");
 
+	// vertex
+	TH1D* h2_ene_synradp = (TH1D*)file_synradp->Get("h1_vtx");
+	TH1D* h2_posx_synradp = (TH1D*)file_synradp->Get("h2_vtx");
+	TH1D* h2_posy_synradp = (TH1D*)file_synradp->Get("h3_vtx");
+	TH1D* h2_posz_synradp = (TH1D*)file_synradp->Get("h4_vtx");
+	TH1D* h2_dirx_synradp = (TH1D*)file_synradp->Get("h5_vtx");
+	TH1D* h2_diry_synradp = (TH1D*)file_synradp->Get("h6_vtx");
+	TH1D* h2_dirz_synradp = (TH1D*)file_synradp->Get("h7_vtx");
+
 	//------- get Synrad3D data
 	// absorbed
 	TFile *file_synrad3d = TFile::Open(fName_synrad3d.Data());
@@ -403,15 +412,19 @@ void compare(	TString fName_synradp = "../Synrad+/ana/output/output_all.root",
 	TCanvas* cc0 = new TCanvas("cc0","cc0",900,900);
 	cc0->cd();
 
-	h2_ene_synrad3d->Rebin(10);
-	h2_ene_synradg4->Rebin(10);
+	h2_ene_synradp->Rebin(100);
+	h2_ene_synrad3d->Rebin(100);
+	h2_ene_synradg4->Rebin(100);
 	cout<<"[INFO] Energy binning:"<<endl;
+	cout<<" - h2_ene_synradp bin width = "<<h2_ene_synradp->GetXaxis()->GetBinWidth(1)<<" [eV]"<<endl;
 	cout<<" - h2_ene_synrad3d bin width = "<<h2_ene_synrad3d->GetXaxis()->GetBinWidth(1)<<" [eV]"<<endl;
 	cout<<" - h2_ene_synradg4 bin width = "<<h2_ene_synradg4->GetXaxis()->GetBinWidth(1)<<" [eV]"<<endl;
 
+	h2_ene_synradp->SetLineWidth(4);
 	h2_ene_synrad3d->SetLineWidth(3);
 	h2_ene_synradg4->SetLineWidth(1);
 
+	h2_ene_synradp->SetLineColor(kBlack);
 	h2_ene_synrad3d->SetLineColor(kBlue);
 	h2_ene_synradg4->SetLineColor(kRed);
 
@@ -419,14 +432,16 @@ void compare(	TString fName_synradp = "../Synrad+/ana/output/output_all.root",
 	h2_ene_synrad3d->SetFillColorAlpha(kBlue,0.2);
 	h2_ene_synradg4->SetFillColorAlpha(kRed,0.2);
 
-	h2_ene_synrad3d->GetXaxis()->SetRangeUser(0,10e3);
-	h2_ene_synrad3d->SetMinimum(1e10);
-//	h2_ene_synrad3d->SetMaximum(1e19);
+	h2_ene_synradp->GetXaxis()->SetRangeUser(0,10e3);
+	h2_ene_synradp->SetMinimum(1e13);
+	h2_ene_synradp->SetMaximum(1e20);
 
-	h2_ene_synrad3d->Draw("HIST");
+	h2_ene_synradp->Draw("HIST");
+	h2_ene_synrad3d->Draw("SAME & HIST");
 	h2_ene_synradg4->Draw("SAME & HIST");
 
 	TLegend* leg00 = new TLegend(0.6,0.7,0.9,0.9);
+	leg00->AddEntry(h2_ene_synradp,"Synrad+","f");
 	leg00->AddEntry(h2_ene_synrad3d,"Synrad3D","f");
 	leg00->AddEntry(h2_ene_synradg4,"SynradG4","f");
 	leg00->Draw();
@@ -443,15 +458,19 @@ void compare(	TString fName_synradp = "../Synrad+/ana/output/output_all.root",
 	//-- dirx
 	c2->cd(1);
 
+	h2_dirx_synradp->Rebin(100);
 	h2_dirx_synrad3d->Rebin(100);
 	h2_dirx_synradg4->Rebin(100);
 	cout<<"[INFO] X' binning:"<<endl;
+	cout<<" - h2_dirx_synradp bin width = "<<h2_dirx_synradp->GetXaxis()->GetBinWidth(1)<<" [eV]"<<endl;
 	cout<<" - h2_dirx_synrad3d bin width = "<<h2_dirx_synrad3d->GetXaxis()->GetBinWidth(1)<<" [eV]"<<endl;
 	cout<<" - h2_dirx_synradg4 bin width = "<<h2_dirx_synradg4->GetXaxis()->GetBinWidth(1)<<" [eV]"<<endl;
 
+	h2_dirx_synradp->SetLineWidth(4);
 	h2_dirx_synrad3d->SetLineWidth(3);
 	h2_dirx_synradg4->SetLineWidth(1);
 
+	h2_dirx_synradp->SetLineColor(kBlack);
 	h2_dirx_synrad3d->SetLineColor(kBlue);
 	h2_dirx_synradg4->SetLineColor(kRed);
 
@@ -459,14 +478,16 @@ void compare(	TString fName_synradp = "../Synrad+/ana/output/output_all.root",
 	h2_dirx_synrad3d->SetFillColorAlpha(kBlue,0.2);
 	h2_dirx_synradg4->SetFillColorAlpha(kRed,0.2);
 
-	h2_dirx_synrad3d->GetXaxis()->SetRangeUser(-0.015,0.005);
-	h2_dirx_synrad3d->SetMinimum(1e11);
-	h2_dirx_synrad3d->SetMaximum(1e20);
+	h2_dirx_synradp->GetXaxis()->SetRangeUser(-0.015,0.005);
+	h2_dirx_synradp->SetMinimum(1e11);
+	h2_dirx_synradp->SetMaximum(1e20);
 
-	h2_dirx_synrad3d->Draw("HIST");
+	h2_dirx_synradp->Draw("HIST");
+	h2_dirx_synrad3d->Draw("SAME & HIST");
 	h2_dirx_synradg4->Draw("SAME & HIST");
 
 	TLegend* leg2_dirx = new TLegend(0.2,0.7,0.5,0.9);
+	leg2_dirx->AddEntry(h2_dirx_synradp,"Synrad+","f");
 	leg2_dirx->AddEntry(h2_dirx_synrad3d,"Synrad3D","f");
 	leg2_dirx->AddEntry(h2_dirx_synradg4,"SynradG4","f");
 	leg2_dirx->Draw();
@@ -477,15 +498,19 @@ void compare(	TString fName_synradp = "../Synrad+/ana/output/output_all.root",
 	//-- diry
 	c2->cd(2);
 
-	h2_diry_synrad3d->Rebin(100);
-	h2_diry_synradg4->Rebin(100);
+	h2_diry_synradp->Rebin(10);
+	h2_diry_synrad3d->Rebin(10);
+	h2_diry_synradg4->Rebin(10);
 	cout<<"[INFO] Y' binning:"<<endl;
+	cout<<" - h2_diry_synradp bin width = "<<h2_diry_synradp->GetXaxis()->GetBinWidth(1)<<" [eV]"<<endl;
 	cout<<" - h2_diry_synrad3d bin width = "<<h2_diry_synrad3d->GetXaxis()->GetBinWidth(1)<<" [eV]"<<endl;
 	cout<<" - h2_diry_synradg4 bin width = "<<h2_diry_synradg4->GetXaxis()->GetBinWidth(1)<<" [eV]"<<endl;
 
+	h2_diry_synradp->SetLineWidth(4);
 	h2_diry_synrad3d->SetLineWidth(3);
 	h2_diry_synradg4->SetLineWidth(1);
 
+	h2_diry_synradp->SetLineColor(kBlack);
 	h2_diry_synrad3d->SetLineColor(kBlue);
 	h2_diry_synradg4->SetLineColor(kRed);
 
@@ -493,14 +518,16 @@ void compare(	TString fName_synradp = "../Synrad+/ana/output/output_all.root",
 	h2_diry_synrad3d->SetFillColorAlpha(kBlue,0.2);
 	h2_diry_synradg4->SetFillColorAlpha(kRed,0.2);
 
-	h2_diry_synrad3d->GetXaxis()->SetRangeUser(-0.005,0.005);
-	h2_diry_synrad3d->SetMinimum(1e11);
-	h2_diry_synrad3d->SetMaximum(1e20);
+	h2_diry_synradp->GetXaxis()->SetRangeUser(-0.002,0.002);
+	h2_diry_synradp->SetMinimum(1e11);
+	h2_diry_synradp->SetMaximum(1e20);
 
-	h2_diry_synrad3d->Draw("HIST");
+	h2_diry_synradp->Draw("HIST");
+	h2_diry_synrad3d->Draw("SAME & HIST");
 	h2_diry_synradg4->Draw("SAME & HIST");
 
 	TLegend* leg2_diry = new TLegend(0.1,0.7,0.4,0.9);
+	leg2_diry->AddEntry(h2_diry_synradp,"Synrad+","f");
 	leg2_diry->AddEntry(h2_diry_synrad3d,"Synrad3D","f");
 	leg2_diry->AddEntry(h2_diry_synradg4,"SynradG4","f");
 	leg2_diry->Draw();
@@ -511,15 +538,19 @@ void compare(	TString fName_synradp = "../Synrad+/ana/output/output_all.root",
 	//-- dirz
 	c2->cd(3);
 
-	h2_dirz_synrad3d->Rebin(10);
-	h2_dirz_synradg4->Rebin(10);
+	h2_dirz_synradp->Rebin(4);
+	h2_dirz_synrad3d->Rebin(4);
+	h2_dirz_synradg4->Rebin(4);
 	cout<<"[INFO] Z' binning:"<<endl;
+	cout<<" - h2_dirz_synradp bin width = "<<h2_dirz_synradp->GetXaxis()->GetBinWidth(1)<<" [eV]"<<endl;
 	cout<<" - h2_dirz_synrad3d bin width = "<<h2_dirz_synrad3d->GetXaxis()->GetBinWidth(1)<<" [eV]"<<endl;
 	cout<<" - h2_dirz_synradg4 bin width = "<<h2_dirz_synradg4->GetXaxis()->GetBinWidth(1)<<" [eV]"<<endl;
 
+	h2_dirz_synradp->SetLineWidth(4);
 	h2_dirz_synrad3d->SetLineWidth(3);
 	h2_dirz_synradg4->SetLineWidth(1);
 
+	h2_dirz_synradp->SetLineColor(kBlack);
 	h2_dirz_synrad3d->SetLineColor(kBlue);
 	h2_dirz_synradg4->SetLineColor(kRed);
 
@@ -527,14 +558,16 @@ void compare(	TString fName_synradp = "../Synrad+/ana/output/output_all.root",
 	h2_dirz_synrad3d->SetFillColorAlpha(kBlue,0.2);
 	h2_dirz_synradg4->SetFillColorAlpha(kRed,0.2);
 
-	h2_dirz_synrad3d->GetXaxis()->SetRangeUser(0.9996,1.00005);
-	h2_dirz_synrad3d->SetMinimum(1e11);
-	h2_dirz_synrad3d->SetMaximum(1e20);
+	h2_dirz_synradp->GetXaxis()->SetRangeUser(0.9998,1.00005);
+	h2_dirz_synradp->SetMinimum(1e11);
+	h2_dirz_synradp->SetMaximum(1e20);
 
-	h2_dirz_synrad3d->Draw("HIST");
+	h2_dirz_synradp->Draw("HIST");
+	h2_dirz_synrad3d->Draw("SAME & HIST");
 	h2_dirz_synradg4->Draw("SAME & HIST");
 
 	TLegend* leg2_dirz = new TLegend(0.1,0.7,0.4,0.9);
+	leg2_dirz->AddEntry(h2_dirz_synradp,"Synrad+","f");
 	leg2_dirz->AddEntry(h2_dirz_synrad3d,"Synrad3D","f");
 	leg2_dirz->AddEntry(h2_dirz_synradg4,"SynradG4","f");
 	leg2_dirz->Draw();
@@ -545,15 +578,19 @@ void compare(	TString fName_synradp = "../Synrad+/ana/output/output_all.root",
 	//-- posx
 	c2->cd(4);
 
+	h2_posx_synradp->Rebin(1);
 	h2_posx_synrad3d->Rebin(1);
 	h2_posx_synradg4->Rebin(1);
 	cout<<"[INFO] X binning:"<<endl;
+	cout<<" - h2_posx_synradp bin width = "<<h2_posx_synradp->GetXaxis()->GetBinWidth(1)<<" [cm]"<<endl;
 	cout<<" - h2_posx_synrad3d bin width = "<<h2_posx_synrad3d->GetXaxis()->GetBinWidth(1)<<" [cm]"<<endl;
 	cout<<" - h2_posx_synradg4 bin width = "<<h2_posx_synradg4->GetXaxis()->GetBinWidth(1)<<" [cm]"<<endl;
 
+	h2_posx_synradp->SetLineWidth(4);
 	h2_posx_synrad3d->SetLineWidth(3);
 	h2_posx_synradg4->SetLineWidth(1);
 
+	h2_posx_synradp->SetLineColor(kBlack);
 	h2_posx_synrad3d->SetLineColor(kBlue);
 	h2_posx_synradg4->SetLineColor(kRed);
 
@@ -561,15 +598,17 @@ void compare(	TString fName_synradp = "../Synrad+/ana/output/output_all.root",
 	h2_posx_synradg4->SetFillColorAlpha(kBlue,0.2);
 	h2_posx_synradg4->SetFillColorAlpha(kRed,0.2);
 
-	h2_posx_synrad3d->GetXaxis()->SetRangeUser(-3,1);
-	h2_posx_synrad3d->GetXaxis()->SetTitle("X_{#gamma} [cm]");
-	h2_posx_synrad3d->SetMinimum(1e11);
-	h2_posx_synrad3d->SetMaximum(1e22);
+	h2_posx_synradp->GetXaxis()->SetRangeUser(-3,1);
+	h2_posx_synradp->GetXaxis()->SetTitle("X_{#gamma} [cm]");
+	h2_posx_synradp->SetMinimum(1e11);
+	h2_posx_synradp->SetMaximum(1e22);
 
-	h2_posx_synrad3d->Draw("HIST");
+	h2_posx_synradp->Draw("HIST");
+	h2_posx_synrad3d->Draw("SAME & HIST");
 	h2_posx_synradg4->Draw("SAME & HIST");
 
 	TLegend* leg2_posx = new TLegend(0.6,0.7,0.9,0.9);
+	leg2_posx->AddEntry(h2_posx_synradp,"Synrad+","f");
 	leg2_posx->AddEntry(h2_posx_synrad3d,"Synrad3D","f");
 	leg2_posx->AddEntry(h2_posx_synradg4,"SynradG4","f");
 	leg2_posx->Draw();
@@ -580,15 +619,19 @@ void compare(	TString fName_synradp = "../Synrad+/ana/output/output_all.root",
 	//-- posy
 	c2->cd(5);
 
+	h2_posy_synradp->Rebin(1);
 	h2_posy_synrad3d->Rebin(1);
 	h2_posy_synradg4->Rebin(1);
 	cout<<"[INFO] Y binning:"<<endl;
+	cout<<" - h2_posy_synradp bin width = "<<h2_posy_synradp->GetXaxis()->GetBinWidth(1)<<" [cm]"<<endl;
 	cout<<" - h2_posy_synrad3d bin width = "<<h2_posy_synrad3d->GetXaxis()->GetBinWidth(1)<<" [cm]"<<endl;
 	cout<<" - h2_posy_synradg4 bin width = "<<h2_posy_synradg4->GetXaxis()->GetBinWidth(1)<<" [cm]"<<endl;
 
+	h2_posy_synradp->SetLineWidth(4);
 	h2_posy_synrad3d->SetLineWidth(3);
 	h2_posy_synradg4->SetLineWidth(1);
 
+	h2_posy_synradp->SetLineColor(kBlack);
 	h2_posy_synrad3d->SetLineColor(kBlue);
 	h2_posy_synradg4->SetLineColor(kRed);
 
@@ -596,15 +639,17 @@ void compare(	TString fName_synradp = "../Synrad+/ana/output/output_all.root",
 	h2_posy_synradg4->SetFillColorAlpha(kBlue,0.2);
 	h2_posy_synradg4->SetFillColorAlpha(kRed,0.2);
 
-	h2_posy_synrad3d->GetXaxis()->SetRangeUser(-0.5,0.5);
-	h2_posy_synrad3d->GetXaxis()->SetTitle("Y_{#gamma} [cm]");
-	h2_posy_synrad3d->SetMinimum(1e11);
-	h2_posy_synrad3d->SetMaximum(1e22);
+	h2_posy_synradp->GetXaxis()->SetRangeUser(-0.01,0.01);
+	h2_posy_synradp->GetXaxis()->SetTitle("Y_{#gamma} [cm]");
+	h2_posy_synradp->SetMinimum(1e11);
+	h2_posy_synradp->SetMaximum(1e22);
 
-	h2_posy_synrad3d->Draw("HIST");
+	h2_posy_synradp->Draw("HIST");
+	h2_posy_synrad3d->Draw("SAME & HIST");
 	h2_posy_synradg4->Draw("SAME & HIST");
 
 	TLegend* leg2_posy = new TLegend(0.6,0.7,0.9,0.9);
+	leg2_posy->AddEntry(h2_posy_synradp,"Synrad+","f");
 	leg2_posy->AddEntry(h2_posy_synrad3d,"Synrad3D","f");
 	leg2_posy->AddEntry(h2_posy_synradg4,"SynradG4","f");
 	leg2_posy->Draw();
@@ -615,15 +660,19 @@ void compare(	TString fName_synradp = "../Synrad+/ana/output/output_all.root",
 	//-- posz
 	c2->cd(6);
 
+	h2_posz_synradp->Rebin(1);
 	h2_posz_synrad3d->Rebin(1);
 	h2_posz_synradg4->Rebin(1);
 	cout<<"[INFO] Z binning:"<<endl;
+	cout<<" - h2_posz_synradp bin width = "<<h2_posz_synradp->GetXaxis()->GetBinWidth(1)<<" [cm]"<<endl;
 	cout<<" - h2_posz_synrad3d bin width = "<<h2_posz_synrad3d->GetXaxis()->GetBinWidth(1)<<" [cm]"<<endl;
 	cout<<" - h2_posz_synradg4 bin width = "<<h2_posz_synradg4->GetXaxis()->GetBinWidth(1)<<" [cm]"<<endl;
 
+	h2_posz_synradp->SetLineWidth(4);
 	h2_posz_synrad3d->SetLineWidth(3);
 	h2_posz_synradg4->SetLineWidth(1);
 
+	h2_posz_synradp->SetLineColor(kBlack);
 	h2_posz_synrad3d->SetLineColor(kBlue);
 	h2_posz_synradg4->SetLineColor(kRed);
 
@@ -631,15 +680,17 @@ void compare(	TString fName_synradp = "../Synrad+/ana/output/output_all.root",
 	h2_posz_synradg4->SetFillColorAlpha(kBlue,0.2);
 	h2_posz_synradg4->SetFillColorAlpha(kRed,0.2);
 
-	h2_posz_synrad3d->GetXaxis()->SetRangeUser(4e2,11e2);
-	h2_posz_synrad3d->GetXaxis()->SetTitle("Z_{#gamma} [cm]");
-	h2_posz_synrad3d->SetMinimum(1e11);
-	h2_posz_synrad3d->SetMaximum(1e22);
+	h2_posz_synradp->GetXaxis()->SetRangeUser(4.5e2,10.5e2);
+	h2_posz_synradp->GetXaxis()->SetTitle("Z_{#gamma} [cm]");
+	h2_posz_synradp->SetMinimum(1e11);
+	h2_posz_synradp->SetMaximum(1e22);
 
-	h2_posz_synrad3d->Draw("HIST");
+	h2_posz_synradp->Draw("HIST");
+	h2_posz_synrad3d->Draw("SAME & HIST");
 	h2_posz_synradg4->Draw("SAME & HIST");
 
 	TLegend* leg2_posz = new TLegend(0.6,0.7,0.9,0.9);
+	leg2_posz->AddEntry(h2_posz_synradp,"Synrad+","f");
 	leg2_posz->AddEntry(h2_posz_synrad3d,"Synrad3D","f");
 	leg2_posz->AddEntry(h2_posz_synradg4,"SynradG4","f");
 	leg2_posz->Draw();

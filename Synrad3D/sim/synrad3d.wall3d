@@ -17,12 +17,6 @@
   v(1) = 0.010, 0.010
 /
 
-
-! This defines the surface.
-&surface_def
-	reflectivity_file = 'reflectivity/Cu_30000.0nmCu.dat'
-/
-
 &place section = 0,	'rec1', 'rectangular1' /
 &place section = 20,	'rec2', 'rectangular1' /
 &place section = 25,  	'rec3', 'rectangular2' /

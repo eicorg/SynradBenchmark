@@ -244,7 +244,6 @@ void PrimaryGeneratorAction::GenerateBeamPrimaries(G4Event* anEvent)
 	G4double mass = particleDef->GetPDGMass();
 	G4double gamma = simPar->GetBeamGamma();
 	G4double Mom = sqrt(pow(gamma,2) - 1.0)*mass;
-	Mom = G4RandGauss::shoot(Mom,simPar->GetBeamMomSpread()*Mom);
 	G4double Ekin = sqrt(pow(Mom,2) + pow(mass,2)) - mass;
 
 	// generate the primary beam 

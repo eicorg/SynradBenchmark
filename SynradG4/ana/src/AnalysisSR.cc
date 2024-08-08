@@ -112,7 +112,7 @@ void AnalysisSR::Init(TString treeName = "tree")
 	// vertex
 	h1_vtx = new TH1F("h1_vtx","Vertex SR photon energy;E_{#gamma} [eV];# of photons",1e6,0,1e6);
 	h2_vtx = new TH1F("h2_vtx","Vertex SR photon position X;X_{#gamma} [cm];Flux [ph/s]",2000,-100,100);
-	h3_vtx = new TH1F("h3_vtx","Vertex SR photon position Y;Y_{#gamma} [cm];Flux [ph/s]",2000,-100,100);
+	h3_vtx = new TH1F("h3_vtx","Vertex SR photon position Y;Y_{#gamma} [cm];Flux [ph/s]",20000,-10,10);
 	h4_vtx = new TH1F("h4_vtx","Vertex SR photon position Z;Z_{#gamma} [cm];Flux [ph/s]",7000,-1000,6000);
 	h5_vtx = new TH1F("h5_vtx","Vertex SR photon direction X;Px_{#gamma}/E_{#gamma};Flux [ph/s]",4e6,-2,2);
 	h6_vtx = new TH1F("h6_vtx","Vertex SR photon direction Y;Py_{#gamma}/E_{#gamma};Flux [ph/s]",4e6,-2,2);
