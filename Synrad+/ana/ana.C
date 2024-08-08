@@ -65,15 +65,24 @@ void ana(	TString outputFileName = "./output/output_all.root",
 	readOrbitData(fOrbitName.Data());	
 
 	// vertex
+	TRandom *rnd = new TRandom3();
 	for(Int_t i = 0; i < vtx_Index.size(); i++)
 	{
 		h1_vtx->Fill(vtx_Photon_Energy.at(i),vtx_Photon_Flux_Hz.at(i));
 		h2_vtx->Fill(vtx_Orbit_pos_X_cm.at(i),vtx_Photon_Flux_Hz.at(i));
 		h3_vtx->Fill(vtx_Orbit_pos_Y_cm.at(i),vtx_Photon_Flux_Hz.at(i));
 		h4_vtx->Fill(vtx_Orbit_pos_Z_cm.at(i),vtx_Photon_Flux_Hz.at(i));
+		// w/o smearing - beam orbit
 		h5_vtx->Fill(vtx_Orbit_dirX.at(i),vtx_Photon_Flux_Hz.at(i));
 		h6_vtx->Fill(vtx_Orbit_dirY.at(i),vtx_Photon_Flux_Hz.at(i));
 		h7_vtx->Fill(vtx_Orbit_dirZ.at(i),vtx_Photon_Flux_Hz.at(i));
+		// w/ -smearing - SR vertex
+		Double_t dirX = rnd->Gaus(vtx_Orbit_dirX.at(i),vtx_Photon_Natural_divX_rad.at(i));
+		Double_t dirY = rnd->Gaus(vtx_Orbit_dirY.at(i),vtx_Photon_Natural_divY_rad.at(i));
+		Double_t dirZ = TMath::Sqrt(1.0 - dirX*dirX - dirY*dirY);
+		h5_vtx->Fill(dirX,vtx_Photon_Flux_Hz.at(i));
+		h6_vtx->Fill(dirY,vtx_Photon_Flux_Hz.at(i));
+		h7_vtx->Fill(dirZ,vtx_Photon_Flux_Hz.at(i));
 	}
 
 	TFile* file = new TFile(outputFileName.Data(),"recreate");

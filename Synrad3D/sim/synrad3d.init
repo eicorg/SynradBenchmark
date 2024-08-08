@@ -9,7 +9,7 @@
   ix_ele_track_start   	= 1   				! Radiation is produced from the *exit* end of this element...
   ix_ele_track_end     	= -1   				!  ... to the exit end of this element. -1 -> Go to the end of the lattice
   photon_direction     	= 1     			! 1 = Forward generation, -1 = Backward generation.
-  num_photons          	= 1000000  			! Nominal number of unfiltered photons generated. 
+  num_photons          	= 10000000  			! Nominal number of unfiltered photons generated. 
   num_photons_per_pass 	= -1    			! Number of photons generated per pass. -1 => Use num_photons value.
 							! However, in the Manual [www.classe.cornell.edu/bmad/manuals/synrad3d.pdf]: 
 							!                                                    -1 => num_photons/5)
