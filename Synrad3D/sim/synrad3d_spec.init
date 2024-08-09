@@ -2,10 +2,10 @@
   lattice_file     	= 'simple.lat' 			! Lattice file
   wall_file        	= 'synrad3d.wall3d'           	! File specifying the vacuum chamber wall
   surface_reflection_file = 'reflectivity/Cu_30000.0nmCu.dat'	! Reflection probability file
-  dat_file         	= 'output_diff/synrad3d.dat'        	! For output
-!  reflect_file		= 'output_diff/reflect.dat'		! If not blank then create a photon reflections data file.
-  lat_ele_file 		= 'output_diff/lat_ele.dat'		! If not blank then create a lattice element data file.
-!  photon_track_file	= 'output_diff/photon_track.dat'	! Photon track output data file.
+  dat_file         	= 'output_spec/synrad3d.dat'        	! For output
+!  reflect_file		= 'output_spec/reflect.dat'		! If not blank then create a photon reflections data file.
+  lat_ele_file 		= 'output_spec/lat_ele.dat'		! If not blank then create a lattice element data file.
+!  photon_track_file	= 'output_spec/photon_track.dat'	! Photon track output data file.
   ix_ele_track_start   	= 1   				! Radiation is produced from the *exit* end of this element...
   ix_ele_track_end     	= -1   				!  ... to the exit end of this element. -1 -> Go to the end of the lattice
   photon_direction     	= 1     			! 1 = Forward generation, -1 = Backward generation.
@@ -21,9 +21,9 @@
   emit_a               	= 0     			! Horiontal emit. If < 0 -> Use value from radiation integral calc.
   emit_b               	= 0     			! Vertical emit.  If < 0 -> Use value from radiation integral calc.
   sig_pz               	= 0     			! Sigma pz. If < 0 -> Use value from radiation integral calc.
-  surface_roughness_rms = 50E-9				! Roughness for diffuse scattering [m].
-  roughness_correlation_len = 10000E-9			! Roughness correlation length [m].
-!  sr3d_params%specular_reflection_only = F    		! For testing diffuse scattering.
+!  surface_roughness_rms = 50E-9			! Roughness for diffuse scattering [m].
+!  roughness_correlation_len = 10000E-9			! Roughness correlation length [m].
+  sr3d_params%specular_reflection_only = T    		! For testing diffuse scattering.
   sr3d_params%allow_reflections = T  			! For testing purposes of photon before/after reflection coords.
   sr3d_params%allow_absorption = T			! For testing purposes.
   random_seed  		= 0        			! Random number seed. 0 -> Use sys clock.

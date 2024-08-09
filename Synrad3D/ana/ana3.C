@@ -1,5 +1,5 @@
-void ana3(	TString _inputFileName = "./output/synrad3d_converted.root",
-		TString _outputFileName = "./output/output_all.root")
+void ana3(	TString _inputFileName = "./output_spec/synrad3d_converted.root",
+		TString _outputFileName = "./output_spec/output_all.root")
 {
 	TString treeName = "tree";
 	TH1F* _h1;

@@ -21,10 +21,10 @@ s_section 	= [+0.00, +20.0, +25.0, +30.0, +35.0, +50.0]
 ax1_section 	= [+0.05, +0.05, +0.04, +0.04, +0.02, +0.02]
 ax2_section 	= [-0.05, -0.05, -0.04, -0.04, -0.02, -0.02]
 # File names
-fTrackName = '../sim/output/photon_track.dat'
-fDataName = '../sim/output/synrad3d.dat'
-fFigName = './output/fig.png'
-fOutName = './output/synrad3d_converted.dat'
+fTrackName = '../sim/output_spec/photon_track.dat'
+fDataName = '../sim/output_spec/synrad3d.dat'
+fFigName = './output_spec/fig.png'
+fOutName = './output_spec/synrad3d_converted.dat'
 draw=False # draw data -> True || convert data -> False
 
 #---------------------------------------------------------------------------------------#

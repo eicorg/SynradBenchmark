@@ -1,9 +1,9 @@
 const Double_t beamCurrent_A = 1.0;
 const Double_t nElectrons_synradg4 = 10*1000000; // N files x M e-/file
 
-void compare(	TString fName_synradp = "../Synrad+/ana/output/output_all.root",
-		TString fName_synrad3d = "../Synrad3D/ana/output/output_all.root",
-		TString fName_synradg4 = "../SynradG4/ana/output/output_all.root"
+void compare_diff(	TString fName_synradp = "../Synrad+/ana/output_diff/output_all.root",
+			TString fName_synrad3d = "../Synrad3D/ana/output_diff/output_all.root",
+			TString fName_synradg4 = "../SynradG4/ana/output_0/output_all.root"
 	)
 {
 	const Double_t minDirx = -0.13, maxDirx =  0.01;
@@ -178,7 +178,7 @@ void compare(	TString fName_synradp = "../Synrad+/ana/output/output_all.root",
 	h1_dirx_synrad3d->SetFillColorAlpha(kBlue,0.2);
 	h1_dirx_synradg4->SetFillColorAlpha(kRed,0.2);
 
-	h1_dirx_synradp->GetXaxis()->SetRangeUser(-0.5,0.5);
+	h1_dirx_synradp->GetXaxis()->SetRangeUser(-0.3,0.3);
 	h1_dirx_synradp->SetMinimum(1e11);
 	h1_dirx_synradp->SetMaximum(1e19);
 
@@ -258,7 +258,7 @@ void compare(	TString fName_synradp = "../Synrad+/ana/output/output_all.root",
 	h1_dirz_synrad3d->SetFillColorAlpha(kBlue,0.2);
 	h1_dirz_synradg4->SetFillColorAlpha(kRed,0.2);
 
-	h1_dirz_synradp->GetXaxis()->SetRangeUser(0.9,1.02);
+	h1_dirz_synradp->GetXaxis()->SetRangeUser(0.965,1.01);
 	h1_dirz_synradp->SetMinimum(1e11);
 	h1_dirz_synradp->SetMaximum(1e19);
 
@@ -518,7 +518,7 @@ void compare(	TString fName_synradp = "../Synrad+/ana/output/output_all.root",
 	h2_diry_synrad3d->SetFillColorAlpha(kBlue,0.2);
 	h2_diry_synradg4->SetFillColorAlpha(kRed,0.2);
 
-	h2_diry_synradp->GetXaxis()->SetRangeUser(-0.002,0.002);
+	h2_diry_synradp->GetXaxis()->SetRangeUser(-0.0005,0.0005);
 	h2_diry_synradp->SetMinimum(1e11);
 	h2_diry_synradp->SetMaximum(1e20);
 

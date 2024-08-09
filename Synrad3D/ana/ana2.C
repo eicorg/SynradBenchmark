@@ -6,8 +6,8 @@ using namespace std;
 
 void ConvertASCIItoROOT(TString fInName, TString fOutName);
 
-void ana2(	TString fInName = "./output/synrad3d_converted.dat",
-		TString fOutName = "./output/synrad3d_converted.root")
+void ana2(	TString fInName = "./output_spec/synrad3d_converted.dat",
+		TString fOutName = "./output_spec/synrad3d_converted.root")
 {
 
 	ConvertASCIItoROOT(fInName,fOutName);

@@ -31,7 +31,7 @@ vector<Double_t> vtx_Photon_Power_W;
 void readCSVfile(TString fName);
 void readSynRadData(TString inputFileName);
 void readOrbitData(TString fName);
-void getFileList(TString fName);
+void getFileList(TString fDirName, TString fName);
 
 vector<TString> fList;
 
@@ -53,12 +53,13 @@ TH1F* h6_vtx = new TH1F("h6_vtx","Vertex SR photon direction Y;Py_{#gamma}/E_{#g
 TH1F* h7_vtx = new TH1F("h7_vtx","Vertex SR photon direction Z;Pz_{#gamma}/E_{#gamma};Flux [ph/s]",4e6,-2,2);
 
 
-void ana(	TString outputFileName = "./output/output_all.root", 
+void ana(	TString outputFileName = "./output_spec/output_all.root", 
 		TString fListName = "fileList.txt",
+		TString fDirName = "../sim/output_spec",
 		TString fOrbitName = "../sim/orbit.coord")
 {
 	// Get the list of input files
-	getFileList(fListName);
+	getFileList(fDirName,fListName);
 	// read SR data
 	for(auto &name: fList){readSynRadData(name);}
 	// read orbit data
@@ -72,11 +73,11 @@ void ana(	TString outputFileName = "./output/output_all.root",
 		h2_vtx->Fill(vtx_Orbit_pos_X_cm.at(i),vtx_Photon_Flux_Hz.at(i));
 		h3_vtx->Fill(vtx_Orbit_pos_Y_cm.at(i),vtx_Photon_Flux_Hz.at(i));
 		h4_vtx->Fill(vtx_Orbit_pos_Z_cm.at(i),vtx_Photon_Flux_Hz.at(i));
-		// w/o smearing - beam orbit
-		h5_vtx->Fill(vtx_Orbit_dirX.at(i),vtx_Photon_Flux_Hz.at(i));
-		h6_vtx->Fill(vtx_Orbit_dirY.at(i),vtx_Photon_Flux_Hz.at(i));
-		h7_vtx->Fill(vtx_Orbit_dirZ.at(i),vtx_Photon_Flux_Hz.at(i));
-		// w/ -smearing - SR vertex
+		//-- w/o smearing - beam orbit
+		// h5_vtx->Fill(vtx_Orbit_dirX.at(i),vtx_Photon_Flux_Hz.at(i));
+		// h6_vtx->Fill(vtx_Orbit_dirY.at(i),vtx_Photon_Flux_Hz.at(i));
+		// h7_vtx->Fill(vtx_Orbit_dirZ.at(i),vtx_Photon_Flux_Hz.at(i));
+		//-- w/ -smearing - SR vertex
 		Double_t dirX = rnd->Gaus(vtx_Orbit_dirX.at(i),vtx_Photon_Natural_divX_rad.at(i));
 		Double_t dirY = rnd->Gaus(vtx_Orbit_dirY.at(i),vtx_Photon_Natural_divY_rad.at(i));
 		Double_t dirZ = TMath::Sqrt(1.0 - dirX*dirX - dirY*dirY);
@@ -110,15 +111,23 @@ void ana(	TString outputFileName = "./output/output_all.root",
 	return;
 }
 
-void getFileList(TString fName)
+void getFileList(TString fDirName, TString fName)
 {
 	string line;
 	fstream f;
 	f.open(fName.Data(),ios::in);
 	if(f.is_open())
 	{
-		while(getline(f,line)){fList.push_back(line);}
+		while(getline(f,line))
+		{
+			fList.push_back(Form("%s/%s",fDirName.Data(),line.c_str()));
+		}
 		f.close();
+	}
+	else
+	{
+		cout<<"[ERROR] Cannot open or read the file: "<<fName<<endl;
+		exit(-1);
 	}
 	// print the list of files
 	cout<<"[INFO] List of input files:"<<endl;

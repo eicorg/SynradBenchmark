@@ -2,10 +2,10 @@
 
 #--------------------------------------------------#
 #---------------- INPUT PARAMETERS ----------------#
-mainInDir="${PWD}/../sim/output" # input directory
+mainInDir="${PWD}/../sim/output_1" # input directory
 treeName='tree'
-outputDir="${PWD}/output" # output directory
-buildDir='./build' # build directory
+outputDir="${PWD}/output_1" # output directory
+buildDir='./build_1' # build directory
 #--------------------------------------------------#
 #--------------------------------------------------#
 

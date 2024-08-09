@@ -3,7 +3,7 @@
 *.dat
 *.dat-e
 .DS_Store
-build
+build*
 *.png
 *.txt
 *.csv
