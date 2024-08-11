@@ -111,4 +111,4 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 For any questions or further information, please contact:
 
 - Your Name - <natochii@bnl.gov>
-- GitHub: nat93
+- GitHub: [nat93](https://github.com/nat93)
