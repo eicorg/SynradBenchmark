@@ -17,15 +17,29 @@ D2_L = 40 	# [m]
 B1_R = (B1_L/2.)/math.sin(B1_A/2.)
 B1_S = B1_R * B1_A
 # Beam pipe aperture
-s_section 	= [+0.00, +20.0, +25.0, +30.0, +35.0, +50.0]
-ax1_section 	= [+0.05, +0.05, +0.04, +0.04, +0.02, +0.02]
-ax2_section 	= [-0.05, -0.05, -0.04, -0.04, -0.02, -0.02]
+s_section 	= [+0.000, +20.00, +25.00, +30.00, +35.00, +50.00]
+ax1_section 	= [+0.025, +0.025, +0.020, +0.020, +0.010, +0.010]
+ax2_section 	= [-0.025, -0.025, -0.020, -0.020, -0.010, -0.010]
+
+#--------------------------------
+#inDirName = '../sim/output_diff'
+#outDirName = './output_diff'
+#draw=False # draw data -> True || convert data -> False
+#---
+#inDirName = '../sim/output_spec'
+#outDirName = './output_spec'
+#draw=False # draw data -> True || convert data -> False
+#---
+inDirName = '../sim/output_track'
+outDirName = './output_track'
+draw=True # draw data -> True || convert data -> False
+#--------------------------------
+
 # File names
-fTrackName = '../sim/output_spec/photon_track.dat'
-fDataName = '../sim/output_spec/synrad3d.dat'
-fFigName = './output_spec/fig.png'
-fOutName = './output_spec/synrad3d_converted.dat'
-draw=False # draw data -> True || convert data -> False
+fTrackName = inDirName+'/photon_track.dat'
+fDataName = inDirName+'/synrad3d.dat'
+fFigName = outDirName+'/fig.png'
+fOutName = outDirName+'/synrad3d_converted.dat'
 
 #---------------------------------------------------------------------------------------#
 # Rotate a vector around an axis
@@ -204,7 +218,7 @@ for a_dipole_step in np.arange(B1_A,0,-0.0001):
 	x_dipole.append(x_dipole_center+(r_dipole+ax2_section[0])*math.cos(a_dipole_step))
 ax[1].add_patch(Polygon(np.vstack((z_dipole,x_dipole)).T,facecolor='red',alpha=0.2,label='dipole'))
 # XS
-ax[0].add_patch(Rectangle((D1_L,ax2_section[0]), B1_L, 0.1,facecolor='red',alpha=0.2,label='dipole'))
+ax[0].add_patch(Rectangle((D1_L,ax2_section[0]), B1_L, ax1_section[0]-ax2_section[0],facecolor='red',alpha=0.2,label='dipole'))
 #---------------------------------------------------------------------------------------#
 # Draw beam pipe aperture
 ax[0].plot(s_section,ax1_section,linestyle='--',label='aperture',linewidth=2,alpha=1.0,color='black')
