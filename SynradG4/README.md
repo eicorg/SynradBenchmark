@@ -1,4 +1,4 @@
-# Synchrotron Radiation Simulation with Geant4
+# Synchrotron Radiation Simulation with Geant4 (**SynradG4**)
 
 ## Table of Contents
 - [Project Description](#project-description)
