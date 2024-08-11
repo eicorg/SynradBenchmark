@@ -13,29 +13,29 @@
 - [Contact](#contact)
 
 ## Project Description
-This project simulates the propagation of synchrotron radiation through a vacuum beam pipe using the Geant4 toolkit. The primary goal is to model the interaction of high-energy photons with the beam pipe's material and calculate the resulting energy deposition and transmission.
+This project simulates the propagation of synchrotron radiation (SR) emited by 18 GeV electonrs through a vacuum beam pipe using the Geant4 toolkit. The primary goal is to model the interaction of SR photons with the beam pipe's material and calculate the reflection probability with different scattering models.
 
 ## Features
-- **Geant4-based simulation**: Utilizes the Geant4 libraries for accurate physics modeling.
+- **Geant4-based simulation**: Utilizes the Geant4 libraries for accurate photon propagation through the geometry.
 - **Custom geometry**: Define and simulate the vacuum beam pipe geometry.
-- **Energy deposition tracking**: Track and record energy deposited by synchrotron radiation.
-- **Material interaction**: Simulate interactions with various materials.
+- **Tracking**: Track synchrotron radiation.
+- **Material interaction**: Simulate SR interactions with various materials through absorbtion on reflection on the vacuum-material border.
 - **Modular design**: Easily modify or extend the simulation components.
 
 ## Prerequisites
 - **Operating System**: Linux, macOS, or Windows
 - **C++ Compiler**: GCC, Clang, or MSVC with C++17 support
-- **Geant4 Toolkit**: Version 10.7 or later
+- **Geant4 Toolkit**: Version 11.0 or later
 - **CMake**: Version 3.12 or later
-- **GSL (GNU Scientific Library)**: For statistical analysis
-- **ROOT** (Optional): For advanced data analysis and visualization
+- **ROOT**: For the output data storage and analysis 
+- **Qt5** (Option): For visualization
 
 ## Installation
 
-### 1. Clone the Repository
+### 1. Unzip the code arciver 
 ```bash
-git clone https://github.com/yourusername/synchrotron-simulation.git
-cd synchrotron-simulation
+tar -xvf SynradG4.tar.gz
+cd SynradG4
 ```
 
 ### 2. Install Dependencies
@@ -54,44 +54,54 @@ make
 ### Running the Simulation
 After building the project, you can run the simulation using:
 
+- Visualization:
 ```bash
-./synchrotron_simulation
+./exe vis.mac ../geometry/setup.xml $RANDOM
+```
+
+- High statistics simulation
+```bash
+./exe run.mac ../geometry/setup.xml $RANDOM
 ```
 
 ### Configuring Simulation Parameters
-Modify the configuration file `config.in` to adjust parameters such as:
+Modify the configuration file `setup.xml` to adjust parameters such as:
 
-- Photon energy range
-- Beam pipe dimensions
-- Material properties
-- Number of simulation events
+- SR photon reflection model
+- Data priting
+- Surface roughness
+- Surface autocorrelation length
+- Surface roughness ration
+
+In `run.mac` and `vis.mac`, define the number of initially generated electrons, visualization parameters, and the output file name.
+
+`$RANDOM` provides a seed for the random number generator used in the code
 
 ### Output
 The simulation will generate output files that include:
 
-- Energy deposition data
-- Photon transmission rates
-- Geant4 logs
-
-## Simulation Parameters
-
-- **PhotonEnergyRange**: Specifies the range of photon energies (e.g., 1 keV to 10 MeV).
-- **BeamPipeMaterial**: Define the material of the beam pipe (e.g., Aluminum, Copper).
-- **Geometry**: Configure the dimensions and shape of the vacuum beam pipe.
-- **NumberOfEvents**: Set the number of photons to simulate.
+- Generated electron beam parameters
+- SR photon production vertecies
+- Photon absorbtion coordinates, energy, and time
+- XML file and random seed
 
 ## Directory Structure
 
 ```makefile
-synchrotron-simulation/
+SynradG4/
 │
 ├── src/                  # Source files for the simulation
 ├── include/              # Header files
-├── data/                 # Data files and configuration
 ├── build/                # Build directory
-├── results/              # Output data from simulations
+├── output/               # Output data from simulations
 ├── CMakeLists.txt        # CMake build script
-├── config.in             # Configuration file
+├── geometry/setup.xml    # Configuration file with SR reflection model
+├── vis.mac               # Visualization file 
+├── run.mac               # High statistics simulation file 
+├── main.cc               # Main source file 
+├── materials             # Reflection probability coeficient files 
+├── runAll.bash           # BASH script to automatically create a `run.mac` file  
+├── runScreens_scan.bash  # BASH script to submit multiple simulations on different CPUs 
 └── README.md             # Project documentation
 ```
 
