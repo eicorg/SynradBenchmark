@@ -36,6 +36,7 @@ This project simulates the propagation of synchrotron radiation through a vacuum
 ```bash
 git clone https://github.com/yourusername/synchrotron-simulation.git
 cd synchrotron-simulation
+```
 
 2. Install Dependencies
 Ensure that Geant4 and other dependencies are installed on your system.
