@@ -1,5 +1,4 @@
 #include "RunAction.hh"
-#include "G4Run.hh"
 
 RunAction::RunAction(G4String xmlFileName, G4long seed) : _xml_filename(xmlFileName), _seed(seed)
 {
@@ -41,19 +40,9 @@ void RunAction::BeginOfRunAction(const G4Run* run)
     	_tree->Branch("beamMomY_eV",	&_beamMomY);
     	_tree->Branch("beamMomZ_eV",	&_beamMomZ);
     	_tree->Branch("beamEnergy_eV",	&_beamEnergy);
-    	_tree->Branch("beamRefPosX_cm",	&_beamRefPosX);
-    	_tree->Branch("beamRefPosY_cm",	&_beamRefPosY);
-    	_tree->Branch("beamRefPosZ_cm",	&_beamRefPosZ);
-    	_tree->Branch("beamRefAngle_rad",	&_beamRefAngle);
-    	_tree->Branch("beamTransfMomSqr_GeV2",	&_beamTransfMomSqr);
-    	_tree->Branch("beamBjorkenX",	&_beamBjorkenX);
 	_tree->Branch("beamKillPosX_cm",	&_beamKillPosX);
     	_tree->Branch("beamKillPosY_cm",	&_beamKillPosY);
     	_tree->Branch("beamKillPosZ_cm",	&_beamKillPosZ);
-
-	_tree->Branch("magName",	&_magName);
-	_tree->Branch("magNph",		&_magNph);
-	_tree->Branch("magSumEph_eV",	&_magSumEph);
 
     	_tree->Branch("gammaVtxPosX_cm",	&_gammaVtxPosX);
     	_tree->Branch("gammaVtxPosY_cm",	&_gammaVtxPosY);
@@ -72,50 +61,6 @@ void RunAction::BeginOfRunAction(const G4Run* run)
     	_tree->Branch("gammaMomZ_eV",	&_gammaMomZ);
     	_tree->Branch("gammaEnergy_eV",	&_gammaEnergy);
     	_tree->Branch("gammaTime_ms",	&_gammaTime);
-
-	_tree->Branch("monName",	&_monName);
-    	_tree->Branch("monPosX_cm",	&_monPosX);
-    	_tree->Branch("monPosY_cm",	&_monPosY);
-    	_tree->Branch("monPosZ_cm",	&_monPosZ);
-    	_tree->Branch("monMomX_eV",	&_monMomX);
-    	_tree->Branch("monMomY_eV",	&_monMomY);
-    	_tree->Branch("monMomZ_eV",	&_monMomZ);
-    	_tree->Branch("monRefPosX_cm",	&_monRefPosX);
-    	_tree->Branch("monRefPosY_cm",	&_monRefPosY);
-    	_tree->Branch("monRefPosZ_cm",	&_monRefPosZ);
-    	_tree->Branch("monRefAngle_rad",	&_monRefAngle);
-
-    	_tree->Branch("sensName",	&_sensName);
-    	_tree->Branch("sensPDG",	&_sensPDG);
-    	_tree->Branch("sensPosX_cm",	&_sensPosX);
-    	_tree->Branch("sensPosY_cm",	&_sensPosY);
-    	_tree->Branch("sensPosZ_cm",	&_sensPosZ);
-    	_tree->Branch("sensMomX_eV",	&_sensMomX);
-    	_tree->Branch("sensMomY_eV",	&_sensMomY);
-    	_tree->Branch("sensMomZ_eV",	&_sensMomZ);
-    	_tree->Branch("sensEnergy_eV",	&_sensEnergy);
-    	_tree->Branch("sensTime_ms",	&_sensTime);
-    	_tree->Branch("sensRefPosX_cm",	&_sensRefPosX);
-    	_tree->Branch("sensRefPosY_cm",	&_sensRefPosY);
-    	_tree->Branch("sensRefPosZ_cm",	&_sensRefPosZ);
-    	_tree->Branch("sensRefAngl_rad",	&_sensRefAngl);
-
-    	_tree->Branch("lumiPosX_cm",	&_lumiPosX);
-    	_tree->Branch("lumiPosY_cm",	&_lumiPosY);
-    	_tree->Branch("lumiPosZ_cm",	&_lumiPosZ);
-    	_tree->Branch("lumiMomX_eV",	&_lumiMomX);
-    	_tree->Branch("lumiMomY_eV",	&_lumiMomY);
-    	_tree->Branch("lumiMomZ_eV",	&_lumiMomZ);
-    	_tree->Branch("lumiEnergy_eV",	&_lumiEnergy);
-    	_tree->Branch("lumiTime_ms",	&_lumiTime);
-
-    	_tracks = new TTree("tracks", "Collected SR Track Data");
-    	_tracks->Branch("trackPosX_cm",	&_trackPosX_cm);
-    	_tracks->Branch("trackPosY_cm",	&_trackPosY_cm);
-    	_tracks->Branch("trackPosZ_cm",	&_trackPosZ_cm);
-    	_tracks->Branch("trackEne_GeV", &_trackEne_GeV);
-    	_tracks->Branch("trackTrackID", &_trackTrackID);
-    	_tracks->Branch("trackEventID", &_trackEventID);
 
 	_avgEventTime = 0;
 
@@ -136,7 +81,6 @@ void RunAction::EndOfRunAction(const G4Run* run)
 	_hfile->cd();
     	_xml->Write();
     	_tree->Write();
-	_tracks->Write();
 
     	delete _hfile;
 

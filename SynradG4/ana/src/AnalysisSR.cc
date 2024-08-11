@@ -29,12 +29,7 @@ void AnalysisSR::Init(TString treeName = "tree")
 	beamMomY_eV = nullptr;
 	beamMomZ_eV = nullptr;
 	beamEnergy_eV = nullptr;
-	beamRefPosX_cm = nullptr;
-	beamRefPosY_cm = nullptr;
-	beamRefPosZ_cm = nullptr;
-	beamRefAngle_rad = nullptr;
 
-	monName = new string();
 	gammaVtxPosX_cm = nullptr;
 	gammaVtxPosY_cm = nullptr;
 	gammaVtxPosZ_cm = nullptr;
@@ -49,9 +44,6 @@ void AnalysisSR::Init(TString treeName = "tree")
 	gammaMomZ_eV = nullptr;
 	gammaEnergy_eV = nullptr;
 	gammaTime_ms = nullptr;
-	magName = nullptr;
-	magNph = nullptr;
-	magSumEph_eV = nullptr;
 
 	// set branch addresses and branch pointers
    	_fChain->SetBranchAddress("event", &event, &b_event);
@@ -63,14 +55,6 @@ void AnalysisSR::Init(TString treeName = "tree")
    	_fChain->SetBranchAddress("beamMomY_eV", &beamMomY_eV, &b_beamMomY_eV);
    	_fChain->SetBranchAddress("beamMomZ_eV", &beamMomZ_eV, &b_beamMomZ_eV);
    	_fChain->SetBranchAddress("beamEnergy_eV", &beamEnergy_eV, &b_beamEnergy_eV);
-   	_fChain->SetBranchAddress("beamRefPosX_cm", &beamRefPosX_cm, &b_beamRefPosX_cm);
-   	_fChain->SetBranchAddress("beamRefPosY_cm", &beamRefPosY_cm, &b_beamRefPosY_cm);
-   	_fChain->SetBranchAddress("beamRefPosZ_cm", &beamRefPosZ_cm, &b_beamRefPosZ_cm);
-   	_fChain->SetBranchAddress("beamRefAngle_rad", &beamRefAngle_rad, &b_beamRefAngle_rad);
-
-   	_fChain->SetBranchAddress("magName", &magName, &b_magName);
-   	_fChain->SetBranchAddress("magNph", &magNph, &b_magNph);
-   	_fChain->SetBranchAddress("magSumEph_eV", &magSumEph_eV, &b_magSumEph_eV);
 
    	_fChain->SetBranchAddress("gammaVtxPosX_cm", &gammaVtxPosX_cm, &b_gammaVtxPosX_cm);
    	_fChain->SetBranchAddress("gammaVtxPosY_cm", &gammaVtxPosY_cm, &b_gammaVtxPosY_cm);
@@ -88,18 +72,6 @@ void AnalysisSR::Init(TString treeName = "tree")
 
    	_fChain->SetBranchAddress("gammaEnergy_eV", &gammaEnergy_eV, &b_gammaEnergy_eV);
    	_fChain->SetBranchAddress("gammaTime_ms", &gammaTime_ms, &b_gammaTime_ms);
-
-   	_fChain->SetBranchAddress("monName", &monName, &b_monName);
-   	_fChain->SetBranchAddress("monPosX_cm", &monPosX_cm, &b_monPosX_cm);
-   	_fChain->SetBranchAddress("monPosY_cm", &monPosY_cm, &b_monPosY_cm);
-   	_fChain->SetBranchAddress("monPosZ_cm", &monPosZ_cm, &b_monPosZ_cm);
-   	_fChain->SetBranchAddress("monMomX_eV", &monMomX_eV, &b_monMomX_eV);
-   	_fChain->SetBranchAddress("monMomY_eV", &monMomY_eV, &b_monMomY_eV);
-   	_fChain->SetBranchAddress("monMomZ_eV", &monMomZ_eV, &b_monMomZ_eV);
-   	_fChain->SetBranchAddress("monRefPosX_cm", &monRefPosX_cm, &b_monRefPosX_cm);
-   	_fChain->SetBranchAddress("monRefPosY_cm", &monRefPosY_cm, &b_monRefPosY_cm);
-   	_fChain->SetBranchAddress("monRefPosZ_cm", &monRefPosZ_cm, &b_monRefPosZ_cm);
-   	_fChain->SetBranchAddress("monRefAngle_rad", &monRefAngle_rad, &b_monRefAngle_rad);
 
 	_fChain->GetEntry(0);
 	// histograms

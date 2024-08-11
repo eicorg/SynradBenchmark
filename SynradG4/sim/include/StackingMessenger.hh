@@ -3,6 +3,13 @@
 
 #include "G4UImessenger.hh"
 #include "globals.hh"
+#include "G4SystemOfUnits.hh"
+#include "StackingAction.hh"
+#include "G4UIdirectory.hh"
+#include "G4UIcmdWithAString.hh"
+#include "G4UIcmdWithAnInteger.hh"
+#include "G4UIcmdWithADoubleAndUnit.hh"
+#include "G4UIcmdWithoutParameter.hh"
 
 class StackingAction;
 class G4UIdirectory;

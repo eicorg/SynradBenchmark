@@ -6,15 +6,13 @@
 #include "G4UserEventAction.hh"
 #include "RunAction.hh"
 #include "globals.hh"
-#include "SimParameters.hh"
 
 class RunAction;
-class SimParameters;
 
 class EventAction : public G4UserEventAction
 {
 public:
-    	EventAction(RunAction*,G4String);
+    	EventAction(RunAction*);
     	virtual ~EventAction();
 
     	virtual void BeginOfEventAction(const G4Event* event);
@@ -23,9 +21,6 @@ public:
 private:
     	RunAction* runAction;
 	G4Timer* _timer;
-
-private:
-        SimParameters* simPar;
 };
 
 #endif

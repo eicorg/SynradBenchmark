@@ -4,7 +4,6 @@
 #include "RunAction.hh"
 #include "SteppingAction.hh"
 #include "StackingAction.hh"
-#include "TrackingAction.hh"
 #include "G4RunManager.hh"
 #include "G4eMultipleScattering.hh"
 #include "G4UImanager.hh"
@@ -77,24 +76,18 @@ int main(int argc, char** argv)
     	RunAction* runAction = new RunAction(xmlFileName,randomSeed);
     	runManager->SetUserAction(runAction);
 
-    	DetectorConstruction* detConstr = new DetectorConstruction(
-		runAction,xmlFileName);
-    	runManager->SetUserInitialization(detConstr);
+    	runManager->SetUserInitialization(new DetectorConstruction);
 
-    	PrimaryGeneratorAction* primary = new PrimaryGeneratorAction(runAction,xmlFileName);
+    	PrimaryGeneratorAction* primary = new PrimaryGeneratorAction(runAction);
     	runManager->SetUserAction(primary);
 
-    	EventAction* eventAction = new EventAction(runAction,xmlFileName);
+    	EventAction* eventAction = new EventAction(runAction);
     	runManager->SetUserAction(eventAction);
 
-    	SteppingAction* stepAction = new SteppingAction(runAction,xmlFileName);
+    	SteppingAction* stepAction = new SteppingAction(runAction);
     	runManager->SetUserAction(stepAction);
 
-    	StackingAction* stackAction = new StackingAction(runAction,xmlFileName);
-    	runManager->SetUserAction(stackAction);
-
-    	TrackingAction* trackAction = new TrackingAction(runAction,xmlFileName);
-    	runManager->SetUserAction(trackAction);
+    	runManager->SetUserAction(new StackingAction);
 
 	// Initialize G4 kernel
 	//

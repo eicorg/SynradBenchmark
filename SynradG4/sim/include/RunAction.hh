@@ -15,6 +15,7 @@
 #include "G4PhysicalConstants.hh"
 #include "G4Timer.hh"
 #include "RunMessenger.hh"
+#include "G4Run.hh"
 
 #include <string>
 #include <fstream>
@@ -46,7 +47,6 @@ public:
 	TFile* _hfile;
     	TTree* _tree;
     	TTree* _xml;
-	TTree* _tracks;
 
     	G4int _event;
 	G4long _seed;
@@ -59,19 +59,9 @@ public:
 	vector<G4float> _beamMomY;
 	vector<G4float> _beamMomZ;
 	vector<G4float> _beamEnergy;
-	vector<G4float> _beamRefPosX;
-	vector<G4float> _beamRefPosY;
-	vector<G4float> _beamRefPosZ;
-	vector<G4float> _beamRefAngle;	
-	vector<G4float> _beamTransfMomSqr;
-	vector<G4float> _beamBjorkenX;
 	vector<G4float> _beamKillPosX;
 	vector<G4float> _beamKillPosY;
 	vector<G4float> _beamKillPosZ;
-	
-	vector<string> _magName; // magnet name where SP photons are generated
-	vector<G4int> _magNph; // number of generated SR photons per event
-	vector<G4float> _magSumEph; // integrated energy of generated SR photons per event
 
 	vector<G4float> _gammaVtxPosX;
 	vector<G4float> _gammaVtxPosY;
@@ -79,13 +69,6 @@ public:
 	vector<G4float> _gammaVtxDirX;
 	vector<G4float> _gammaVtxDirY;
 	vector<G4float> _gammaVtxDirZ;
-
-	vector<G4float> _trackPosX_cm;
-	vector<G4float> _trackPosY_cm;
-	vector<G4float> _trackPosZ_cm;
-	vector<G4float> _trackEne_GeV;
-	vector<G4int> _trackTrackID;
-	vector<G4int> _trackEventID;
 
 	vector<string> _gammaPostPV;
 	vector<string> _gammaPrePV;
@@ -97,42 +80,6 @@ public:
 	vector<G4float> _gammaMomZ;
 	vector<G4float> _gammaEnergy;
 	vector<G4float> _gammaTime;
-
-	vector<G4float> _lumiPosX;
-	vector<G4float> _lumiPosY;
-	vector<G4float> _lumiPosZ;
-	vector<G4float> _lumiMomX;
-	vector<G4float> _lumiMomY;
-	vector<G4float> _lumiMomZ;
-	vector<G4float> _lumiEnergy;
-	vector<G4float> _lumiTime;
-
-	vector<string> _sensName;
-	vector<G4int> _sensPDG;
-	vector<G4float> _sensPosX;
-	vector<G4float> _sensPosY;
-	vector<G4float> _sensPosZ;
-	vector<G4float> _sensMomX;
-	vector<G4float> _sensMomY;
-	vector<G4float> _sensMomZ;
-	vector<G4float> _sensEnergy;
-	vector<G4float> _sensTime;
-	G4float _sensRefPosX;
-	G4float _sensRefPosY;
-	G4float _sensRefPosZ;
-	G4float _sensRefAngl;
-
-	string _monName;
-	G4float _monPosX;
-	G4float _monPosY;
-	G4float _monPosZ;
-	G4float _monMomX;
-	G4float _monMomY;
-	G4float _monMomZ;
-	G4float _monRefPosX;
-	G4float _monRefPosY;
-	G4float _monRefPosZ;
-	G4float _monRefAngle;
 
 	G4double _avgEventTime;
 

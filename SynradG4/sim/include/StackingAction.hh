@@ -4,18 +4,17 @@
 #include "G4UserStackingAction.hh"
 #include "StackingMessenger.hh"
 #include "globals.hh"
-#include "SimParameters.hh"
-#include "RunAction.hh"
+#include "G4Track.hh"
+#include "G4Gamma.hh"
+#include "G4ProcessManager.hh"
 
-class RunAction;
-class SimParameters;
 class G4Track;
 class StackingMessenger;
 
 class StackingAction : public G4UserStackingAction
 {
 public:
-  	StackingAction(RunAction*,G4String);
+  	StackingAction();
   	virtual ~StackingAction();
 
   	G4int GetKillStatus() { return _kill_secondaries;}
@@ -26,8 +25,6 @@ public:
 private:
   	G4int _kill_secondaries;
   	StackingMessenger* fStackingMessenger;
-	SimParameters* simPar;
-	RunAction* runAction;
 };
 
 #endif

@@ -1,10 +1,4 @@
 #include "StackingMessenger.hh"
-#include "StackingAction.hh"
-#include "G4UIdirectory.hh"
-#include "G4UIcmdWithAString.hh"
-#include "G4UIcmdWithAnInteger.hh"
-#include "G4UIcmdWithADoubleAndUnit.hh"
-#include "G4UIcmdWithoutParameter.hh"
 
 StackingMessenger::StackingMessenger(StackingAction * StackAct):G4UImessenger(),
     fStackingAction(StackAct), _directory(0), _kill_secondaries_Cmd(0)

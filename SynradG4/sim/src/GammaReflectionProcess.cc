@@ -1,11 +1,4 @@
 #include "GammaReflectionProcess.hh"
-#include "G4VParticleChange.hh"
-#include "G4VSolid.hh"
-#include "globals.hh"
-#include "G4SystemOfUnits.hh"
-#include "G4ParallelWorldProcess.hh"
-#include "G4TransportationManager.hh"
-#include "G4Exp.hh"
 
 #define NMAXLOOPS 100 // the maximum number of loops to find acceptable angular offsets
 
@@ -604,7 +597,6 @@ void GammaReflectionProcess::DoGammaReflection3(const G4double GamEner,
 
 	// if not specular
 	// https://cds.cern.ch/record/2157666/files/CERN-THESIS-2016-047.pdf
-	// https://gitlab.cern.ch/molflow_synrad/synrad/-/blob/master_cli/src/Simulation/Particle.cpp?ref_type=heads
 	if(G4UniformRand() > probSpec)
 	{
 		G4double tau = fAutoCorrLength / fSurfaceRoughness;

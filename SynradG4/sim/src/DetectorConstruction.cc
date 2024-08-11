@@ -1,95 +1,25 @@
 #include "DetectorConstruction.hh"
-#include "G4Material.hh"
-#include "G4Box.hh"
-#include "G4Tubs.hh"
-#include "G4Trd.hh"
-#include "G4EllipticalTube.hh"
-#include "G4Polycone.hh"
-#include "G4LogicalVolume.hh"
-#include "G4ThreeVector.hh"
-#include "G4PVPlacement.hh"
-#include "G4RotationMatrix.hh"
-#include "G4NistManager.hh"
-#include "G4VisAttributes.hh"
-#include "G4PhysicalConstants.hh"
-#include "G4RunManager.hh"
-#include "G4ThreeVector.hh"
-#include "G4SystemOfUnits.hh"
-#include "globals.hh"
-#include "G4MagneticField.hh"
-#include "G4FieldManager.hh"
-#include "G4UniformMagField.hh"
-#include "G4QuadrupoleMagField.hh"
-#include "G4UserLimits.hh"
-#include "G4ChordFinder.hh"
-#include "G4UnionSolid.hh"
-#include "G4SubtractionSolid.hh"
-#include "G4IntersectionSolid.hh"
-#include "CADMesh.hh" // https://github.com/christopherpoole/CADMesh
-#include "SolenoidMagField.hh"
-#include "G4Torus.hh"
-#include "G4EllipticalCone.hh"
-#include "G4EllipticalTube.hh"
-#include "G4ExtrudedSolid.hh"
 
-const G4double farbwd_len = 30 * m; // between B2eR and B3eR
-const G4double B2eR_beampipe_radius = 5 * cm;
-const G4double lumi_halflen = 2.25 * m;
+using namespace std;
 
-DetectorConstruction::DetectorConstruction(RunAction* runAct, G4String xmlFileName) : 
-G4VUserDetectorConstruction(), runAction(runAct)
+DetectorConstruction::DetectorConstruction() : G4VUserDetectorConstruction()
 {
-	simPar = new SimParameters();
-	simPar->InitDefault();
-	simPar->ReadXML(xmlFileName);
-	simPar->PrintBeampipeFileName();
-	simPar->PrintIpBeampipeParameters();
-	simPar->PrintGeoParameters();
-	simPar->PrintMagParameters();
-	simPar->PrintAbsParameters();
-
-	addAbsorber = true;
 	visibility = true;
 	mat_vac = nullptr;
-	world_box = nullptr;
-	world_log = nullptr;
 	world_phys = nullptr;
-	beampipeUni_solid = nullptr;
-	beampipeVac_solid = nullptr;
-	bwd_beampipeVac_solid = nullptr;
-	farbwd_beampipeVac_solid1 = nullptr;
-	farbwd_beampipeVac_solid2 = nullptr;
-	farbwd_beampipeVac_log1 = nullptr;
-	farbwd_beampipeVac_log2 = nullptr;
-	farbwd_beampipe_tube = nullptr;
-	beampipeVac_log = nullptr;
-	ip_box = nullptr;
-	ip_log = nullptr;
+	world_log = nullptr;
 	mass = -1;
 	gamma = -1;
-	dist_tag.clear();
-	bwd_ante_chmbH = 1;
-
-	G4cout<<"[INFO] DetectorConstruction::DetectorConstruction ==> farbwd_len = "
-		<<farbwd_len/m<<" [m]"<<G4endl;
-	G4cout<<"[INFO] DetectorConstruction::DetectorConstruction ==> B2eR_beampipe_radius = "
-		<<B2eR_beampipe_radius/cm<<" [cm]"<<G4endl;
-
-	fDetectorMessenger = new DetectorMessenger(this);
 }
 
 DetectorConstruction::~DetectorConstruction()
-{
-	delete simPar;
-	delete fDetectorMessenger;
-}
+{}
 
 G4VPhysicalVolume* DetectorConstruction::Construct()
 {
 	BuildMaterials();
 	BuildWorld();
 	CreateBeamPipeSolid();
-	BuildAbsorbers();
 
 	return world_phys;
 }
@@ -111,10 +41,7 @@ void DetectorConstruction::BuildWorld()
 		"[ERROR] DetectorConstruction::BuildWorld ==> Materials are not created\n");
 	}
 
-   	world_box = new G4Box("world",
-                                 simPar->GetWorldSizeX()/2,
-                                 simPar->GetWorldSizeY()/2,
-                                 simPar->GetWorldSizeZ()/2);
+   	G4VSolid* world_box = new G4Box("world",2*m,2*m,100*m);
     	world_log = new G4LogicalVolume(world_box,mat_vac,"world");
     	world_phys = new G4PVPlacement(0, G4ThreeVector(0.,0.,0.),world_log,"world",0,false,0,true);
 	//- Visualization
@@ -131,12 +58,12 @@ void DetectorConstruction::CreateBeamPipeSolid()
 		"[ERROR] DetectorConstruction::CreateBeamPipeSolid ==> Materials are not created\n");
 	}
 
-	G4double D1_L = 5*m;
-	G4double B1_L = 5*m;
-	G4double B1_A = 0.010*rad;
-	G4double D2_L = 40*m;
-	G4double B1_R = (B1_L/2.)/sin(B1_A/2.); // dipole radius
-	G4double B1_S = B1_R * B1_A; // dipole orbit length
+	G4double D1_L = 5*m; // Drift 1
+	G4double B1_L = 5*m; // Dipole
+	G4double B1_A = 0.010*rad; // Bending angle of the dipole
+	G4double D2_L = 40*m; // Drift 2
+	G4double B1_R = (B1_L/2.)/sin(B1_A/2.); // Dipole radius
+	G4double B1_S = B1_R * B1_A; // Dipole orbit length
 
 	//====================================//
 	//============== DRIFTS ==============//
@@ -160,15 +87,14 @@ void DetectorConstruction::CreateBeamPipeSolid()
 	G4RotationMatrix* drift2_rot = new G4RotationMatrix();
 	drift2_rot->rotateY(B1_A);
 
-	beampipeVac_solid = new G4UnionSolid("beampipeVac_solid",
+	G4VSolid* beampipeVac_solid = new G4UnionSolid("beampipeVac_solid",
 		drift1_box,drift2_box,drift2_rot,G4ThreeVector(
 				0-(B1_L)*sin(B1_A/2.)-(10*m/2.)*sin(B1_A),
 				0,
 				D1_L/2+(B1_L)*cos(B1_A/2.)+(10*m/2.)*cos(B1_A)));
 	//- Vacuum (place the beam pipe without magnet and IP volumes) 
-	beampipeVac_log = new G4LogicalVolume(beampipeVac_solid, mat_vac,"beampipeVac");
+	G4LogicalVolume* beampipeVac_log = new G4LogicalVolume(beampipeVac_solid, mat_vac,"beampipeVac");
 	// set tracking time limit in the volume
-	beampipeVac_log->SetUserLimits(new G4UserLimits(DBL_MAX,DBL_MAX,simPar->GetTrackTcut()));
 	new G4PVPlacement(0,G4ThreeVector(0,0,D1_L/2.),
 		beampipeVac_log,"vac_beampipe",world_log,false,0,true);
 	//- Visualization
@@ -179,7 +105,6 @@ void DetectorConstruction::CreateBeamPipeSolid()
 	//=======================================//
 	//============== ABSORBERs ==============//
 	//=======================================//
-
 
 	G4Box* abs_box = new G4Box("abs_box",1*m/2,1*m/2,5*cm/2);
 
@@ -207,7 +132,6 @@ void DetectorConstruction::CreateBeamPipeSolid()
 	// magnet logic volume
 	G4LogicalVolume* dipole_log = new G4LogicalVolume(dipole_tube,mat_vac,"dipole_log");
 	// set tracking time limit in the volume
-	dipole_log->SetUserLimits(new G4UserLimits(DBL_MAX,DBL_MAX,simPar->GetTrackTcut()));
 
 	//- Create magnetic field
 	// Particles
@@ -242,47 +166,9 @@ void DetectorConstruction::BuildParticles()
 {
         G4ParticleTable* particleTable = G4ParticleTable::GetParticleTable();
         G4ParticleDefinition* particleDef;
-        particleDef = particleTable->FindParticle(simPar->GetBeamName().c_str());
+        particleDef = particleTable->FindParticle("e-");
         mass = particleDef->GetPDGMass();
-        gamma = simPar->GetBeamGamma();
+        gamma = 35225.121;
 
 	return;
-}
-
-void DetectorConstruction::BuildAbsorbers()
-{
-	//- Absorbers
-	for(int iAbs = 0; iAbs < simPar->GetAbsNum(); iAbs++)
-	{
-	}
-
-	return;
-}
-
-void DetectorConstruction::SetTaggerDistance(G4double dist)
-{
-	dist_tag.push_back(dist);
-	G4cout	<<G4endl
-		<<"[INFO] DetectorConstruction::SetTaggerDistance ==> "
-		<<"["<<dist_tag.size()-1<<"] = "
-		<<dist_tag.back()/cm<<" [cm]"
-		<<G4endl;
-
-	return;
-}
-
-void DetectorConstruction::SetAnteChamberH(G4double H)
-{
-	bwd_ante_chmbH = H;
-	G4cout  <<G4endl
-		<<"[INFO] DetectorConstruction::SetAnteChamberH ==> "
-		<<bwd_ante_chmbH/cm<<" [cm]"
-		<<G4endl; 	
-
-	return;
-}
-
-void DetectorConstruction::ModifyGeometry()
-{
-	G4RunManager::GetRunManager()->DefineWorldVolume(Construct());
 }

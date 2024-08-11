@@ -23,7 +23,6 @@ echo "##-----------------------------------------##"		>> ./macFiles/run_${jobID}
 echo "/output/filename ${outputDir}/output_${jobID}.root"	>> ./macFiles/run_${jobID}.mac
 echo ""								>> ./macFiles/run_${jobID}.mac
 echo "/stack/killsecondaries 0"					>> ./macFiles/run_${jobID}.mac
-echo "/detector/ModifyGeometry"                                 >> ./macFiles/run_${jobID}.mac
 echo ""								>> ./macFiles/run_${jobID}.mac
 echo "/run/initialize"						>> ./macFiles/run_${jobID}.mac
 echo "##-----------------------------------------##"		>> ./macFiles/run_${jobID}.mac

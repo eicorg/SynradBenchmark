@@ -36,14 +36,6 @@ public :
 	vector<float>   *beamMomY_eV;
 	vector<float>   *beamMomZ_eV;
 	vector<float>   *beamEnergy_eV;
-	vector<float> 	*beamRefPosX_cm;
-	vector<float> 	*beamRefPosY_cm;
-	vector<float> 	*beamRefPosZ_cm;
-	vector<float> 	*beamRefAngle_rad;
-
-	vector<string>	*magName;
-	vector<int>	*magNph;
-	vector<float>	*magSumEph_eV;
 
 	vector<float>   *gammaVtxPosX_cm;
 	vector<float>   *gammaVtxPosY_cm;
@@ -62,18 +54,6 @@ public :
 	vector<float>   *gammaEnergy_eV;
 	vector<float>   *gammaTime_ms;
 
-	string 		*monName;
-	Float_t         monPosX_cm;
-	Float_t         monPosY_cm;
-	Float_t         monPosZ_cm;
-	Float_t         monMomX_eV;
-	Float_t         monMomY_eV;
-	Float_t         monMomZ_eV;
-	Float_t 	monRefPosX_cm;
-	Float_t 	monRefPosY_cm;
-	Float_t 	monRefPosZ_cm;
-	Float_t 	monRefAngle_rad;
-
    	// List of branches
 	TBranch        *b_event;   //!
 	TBranch        *b_beamPdg;   //!
@@ -84,14 +64,6 @@ public :
 	TBranch        *b_beamMomY_eV;   //!
 	TBranch        *b_beamMomZ_eV;   //!
 	TBranch        *b_beamEnergy_eV;   //!
-	TBranch        *b_beamRefPosX_cm;   //!
-	TBranch        *b_beamRefPosY_cm;   //!
-	TBranch        *b_beamRefPosZ_cm;   //!
-	TBranch        *b_beamRefAngle_rad;   //!
-
-	TBranch        *b_magName;   //!
-	TBranch        *b_magNph;   //!
-	TBranch        *b_magSumEph_eV;   //!
 
 	TBranch        *b_gammaVtxPosX_cm;   //!
 	TBranch        *b_gammaVtxPosY_cm;   //!
@@ -109,18 +81,6 @@ public :
 
 	TBranch        *b_gammaEnergy_eV;   //!
 	TBranch        *b_gammaTime_ms;   //!
-
-	TBranch        *b_monName;   //!
-	TBranch        *b_monPosX_cm;   //!
-	TBranch        *b_monPosY_cm;   //!
-	TBranch        *b_monPosZ_cm;   //!
-	TBranch        *b_monMomX_eV;   //!
-	TBranch        *b_monMomY_eV;   //!
-	TBranch        *b_monMomZ_eV;   //!
-	TBranch        *b_monRefPosX_cm;   //!
-	TBranch        *b_monRefPosY_cm;   //!
-	TBranch        *b_monRefPosZ_cm;   //!
-	TBranch        *b_monRefAngle_rad;   //!
 
  	void Init(TString);
 	void Loop();

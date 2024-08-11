@@ -6,6 +6,13 @@
 #include "G4VTrackTerminator.hh"
 #include "G4Gamma.hh"
 #include "G4NistManager.hh"
+#include "G4VParticleChange.hh"
+#include "G4VSolid.hh"
+#include "globals.hh"
+#include "G4SystemOfUnits.hh"
+#include "G4ParallelWorldProcess.hh"
+#include "G4TransportationManager.hh"
+#include "G4Exp.hh"
 
 #include <string>
 #include <fstream>

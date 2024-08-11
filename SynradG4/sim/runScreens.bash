@@ -6,9 +6,9 @@ date;
 
 #--------------------------------------------------#
 #---------------- INPUT PARAMETERS ----------------#
-xmlFile="${PWD}/geometry/setup_1.xml" # simulation geometry settings
-nParticles=1000000 # number of primary particles per job
-outputDir="${PWD}/output_1" # output directory
+xmlFile="${PWD}/geometry/setup.xml" # simulation geometry settings
+nParticles=1000 # number of primary particles per job
+outputDir="${PWD}/output" # output directory
 nJobs=10
 #--------------------------------------------------#
 #--------------------------------------------------#
@@ -30,8 +30,8 @@ then
 fi
 
 # build directory
-mkdir -pv ./build_1
-cd ./build_1/
+mkdir -pv ./build
+cd ./build/
 
 # config
 cmake ../
@@ -39,7 +39,7 @@ cmake ../
 # compile
 make -j4
 
-chmod 777 runAll_macbook.bash;
+chmod 777 runAll.bash;
 
 mkdir -pv ./macFiles
 
@@ -48,7 +48,7 @@ do
         echo "[INFO] GNU Screen session name: jobID_$jobID";
 
 	# submit a session
-        screen -S jobID_$jobID -d -m ./runAll_macbook.bash $jobID $nParticles $xmlFile $RANDOM ${outputDir}
+        screen -S jobID_$jobID -d -m ./runAll.bash $jobID $nParticles $xmlFile $RANDOM ${outputDir}
 done
 screen -ls
 
