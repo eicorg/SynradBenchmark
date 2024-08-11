@@ -38,16 +38,18 @@ git clone https://github.com/yourusername/synchrotron-simulation.git
 cd synchrotron-simulation
 ```
 
-2. Install Dependencies
+### 2. Install Dependencies
 Ensure that Geant4 and other dependencies are installed on your system.
 
-3. Build the Project
-bash
-Copy code
+### 3. Build the Project
+```bash
 mkdir build
 cd build
 cmake ..
 make
+```
+
+
 Usage
 
 Running the Simulation
