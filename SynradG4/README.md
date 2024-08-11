@@ -49,38 +49,40 @@ cmake ..
 make
 ```
 
+## Usage
 
-Usage
-
-Running the Simulation
+### Running the Simulation
 After building the project, you can run the simulation using:
 
-bash
-Copy code
+```bash
 ./synchrotron_simulation
-Configuring Simulation Parameters
-Modify the configuration file config.in to adjust parameters such as:
+```
 
-Photon energy range
-Beam pipe dimensions
-Material properties
-Number of simulation events
-Output
+### Configuring Simulation Parameters
+Modify the configuration file `config.in` to adjust parameters such as:
+
+- Photon energy range
+- Beam pipe dimensions
+- Material properties
+- Number of simulation events
+
+### Output
 The simulation will generate output files that include:
 
-Energy deposition data
-Photon transmission rates
-Geant4 logs
-Simulation Parameters
+- Energy deposition data
+- Photon transmission rates
+- Geant4 logs
 
-PhotonEnergyRange: Specifies the range of photon energies (e.g., 1 keV to 10 MeV).
-BeamPipeMaterial: Define the material of the beam pipe (e.g., Aluminum, Copper).
-Geometry: Configure the dimensions and shape of the vacuum beam pipe.
-NumberOfEvents: Set the number of photons to simulate.
-Directory Structure
+## Simulation Parameters
 
-makefile
-Copy code
+- **PhotonEnergyRange**: Specifies the range of photon energies (e.g., 1 keV to 10 MeV).
+- **BeamPipeMaterial**: Define the material of the beam pipe (e.g., Aluminum, Copper).
+- **Geometry**: Configure the dimensions and shape of the vacuum beam pipe.
+- **NumberOfEvents**: Set the number of photons to simulate.
+
+## Directory Structure
+
+```makefile
 synchrotron-simulation/
 │
 ├── src/                  # Source files for the simulation
@@ -91,23 +93,22 @@ synchrotron-simulation/
 ├── CMakeLists.txt        # CMake build script
 ├── config.in             # Configuration file
 └── README.md             # Project documentation
-Contributing
+```
+
+## Contributing
 
 Contributions are welcome! Please fork this repository, create a new branch, and submit a pull request.
 
-Reporting Issues
+## Reporting Issues
 If you encounter any issues, please report them using the GitHub Issues tab.
 
-License
+## License
 
 This project is licensed under the MIT License. See the LICENSE file for more details.
 
-Contact
+## Contact
 
 For any questions or further information, please contact:
 
-Your Name - your.email@example.com
-GitHub: yourusername
-sql
-Copy code
-This version ensures all steps, instructions, and details are properly formatted in Markdown, allowing for easy copying and pasting into your project's README file.
+- Your Name - <your.email@example.com>
+- GitHub: yourusername
