@@ -110,5 +110,5 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 For any questions or further information, please contact:
 
-- Your Name - <your.email@example.com>
-- GitHub: yourusername
+- Your Name - <natochii@bnl.gov>
+- GitHub: nat93
