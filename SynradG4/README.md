@@ -6,8 +6,9 @@
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Directory Structure](#directory-structure)
+- [Simulation Directory Structure](#simulation-directory-structure)
 - [Analysis](#analysis)
+- [Analysis Directory Structure](#analysis-directory-structure)
 - [Contributing](#contributing)
 - [License](#license)
 - [Contact](#contact)
@@ -114,7 +115,7 @@ The simulation will generate output files that include:
 - Photon absorption coordinates, energy, and time
 - XML file and random seed
 
-## Directory Structure
+## Simulation Directory Structure
 
 ```makefile
 SynradG4/sim/
@@ -164,6 +165,7 @@ if(     40e2 < gammaPosZ_cm->at(i) && gammaPosZ_cm->at(i) < 45e2        )
 By default, some histograms will be built for absorbed SR photons between 40 m and 45 m.
 
 
+## Analysis Directory Structure
 ```makefile
 SynradG4/ana/
 │
