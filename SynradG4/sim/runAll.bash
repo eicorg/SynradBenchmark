@@ -20,7 +20,7 @@ echo "/run/verbose 1"						>> ./macFiles/run_${jobID}.mac
 echo "/event/verbose 0"						>> ./macFiles/run_${jobID}.mac
 echo "/tracking/verbose 0"					>> ./macFiles/run_${jobID}.mac
 echo "##-----------------------------------------##"		>> ./macFiles/run_${jobID}.mac
-echo "/output/filename ${outputDir}/output_${jobID}.root"	>> ./macFiles/run_${jobID}.mac
+echo "/output/filename ${outputDir}/sim_output_${jobID}.root"	>> ./macFiles/run_${jobID}.mac
 echo ""								>> ./macFiles/run_${jobID}.mac
 echo "/stack/killsecondaries 0"					>> ./macFiles/run_${jobID}.mac
 echo ""								>> ./macFiles/run_${jobID}.mac

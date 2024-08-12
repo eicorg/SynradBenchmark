@@ -68,6 +68,11 @@ After building the project, you can run the simulation using:
 ./exe run.mac ../geometry/setup.xml $RANDOM
 ```
 
+Or simply use the BASH script in `SynradG4/sim/`:
+```bash
+./runScreens.bash
+```
+
 ### Configuring Simulation Parameters
 Modify the configuration file `setup.xml` to adjust parameters such as:
 
@@ -159,6 +164,11 @@ make
 rm -rf mainInDir/sim_output_all.root
 hadd -f mainInDir/sim_output_all.root mainInDir/sim_output_*.root
 ./exe mainInDir sim_output_all.root outputDir ana_output_all.root treeName
+```
+
+Or simply use the BASH script in `SynradG4/ana/`:
+```bash
+./runAna.bash
 ```
 
 - `mainInDir` is the input directory where SR simulation output files are stored
