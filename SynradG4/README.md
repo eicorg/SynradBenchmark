@@ -8,12 +8,14 @@
 - [Usage](#usage)
 - [Simulation Parameters](#simulation-parameters)
 - [Directory Structure](#directory-structure)
+- [Analysis](#analysis)
 - [Contributing](#contributing)
 - [License](#license)
 - [Contact](#contact)
 
 ## Project Description
 This project simulates the propagation of synchrotron radiation (SR) emited by 18-GeV electons through a vacuum beam pipe using the Geant4 toolkit. The primary goal is to model the interaction of SR photons with the beam pipe's material and calculate the reflection probability with different scattering models.
+Furthermore, there are dedicated to analyse the output data building histograms with absorbed SR photons on the vacuum beam pipe walls.
 
 ## Features
 - **Geant4-based simulation**: Utilizes the Geant4 libraries for accurate photon propagation through the geometry.
@@ -27,7 +29,7 @@ This project simulates the propagation of synchrotron radiation (SR) emited by 1
 - **C++ Compiler**: GCC, Clang, or MSVC with C++17 support
 - **Geant4 Toolkit**: Version 11.0 or later
 - **CMake**: Version 3.12 or later
-- **ROOT**: For the output data storage and analysis 
+- **ROOT**: Version 6.32 or later, for the output data storage and analysis 
 - **Qt5** (Option): For visualization
 
 ## Installation
@@ -39,7 +41,7 @@ cd SynradG4/
 ```
 
 ### 2. Install Dependencies
-Ensure that Geant4 and other dependencies are installed on your system.
+Ensure that Geant4, ROOT and other dependencies are installed on your system.
 
 ### 3. Build the Project
 ```bash
@@ -117,22 +119,36 @@ SynradG4/sim/
 ├── runAll.bash           # BASH script to automatically create a `run.mac` file  
 └── runScreens_scan.bash  # BASH script to submit multiple simulations on different CPUs 
 
+## Analysis
+To analyze the simulation output, go to `SynradG4/ana/`. The code is developed to read the output file after the SR simulation and build histograms with photon distributions.
+
+### 1. Build
+```bash
+mkdir buid
+cd build/
+cmake ../
+make
+``` 
+
+### 2. Run
+```bash
+rm -rf mainInDir/sim_output_all.root
+hadd -f mainInDir/sim_output_all.root mainInDir/sim_output_*.root
+./exe mainInDir sim_output_all.root outputDir ana_output_all.root treeName
+```
+- `mainInDir` is the input directory where SR simulation output file are stored
+- `sim_output_all.root` contains data of all merged output files
+- `outputDir` output directory for the analysis
+- `ana_output_all` output analysis file name
+- `treeName` is the name of the tree with SR data in `sim_output_all.root`
+
 SynradG4/ana/
 │
-├── src/                  # Source files for the simulation
-├── include/              # Header files
+├── src/                  # Source and header files for the analysis
 ├── build/                # Build directory
-├── output/               # Output data from simulations
+├── output/               # Output data from analysis
 ├── CMakeLists.txt        # CMake build script
-├── geometry/setup.xml    # Configuration file with SR reflection model
-├── vis.mac               # Visualization file 
-├── run.mac               # High statistics simulation file 
-├── main.cc               # Main source file 
-├── materials             # Reflection probability coeficient files 
-├── runAll.bash           # BASH script to automatically create a `run.mac` file  
-├── runScreens_scan.bash  # BASH script to submit multiple simulations on different CPUs 
-
-└── README.md             # Project documentation
+└── runAna.bash           # BASH script to run the analysis 
 ```
 
 ## Contributing
