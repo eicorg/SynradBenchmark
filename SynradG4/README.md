@@ -157,6 +157,13 @@ hadd -f mainInDir/sim_output_all.root mainInDir/sim_output_*.root
 - `ana_output_all` output analysis file name
 - `treeName` is the name of the tree with SR data in `sim_output_all.root`
 
+In the file `SynradG4/ana/src/AnalysisSR.cc`, one can define the region of ineterest for detailed SR distributions:
+```bash
+if(     40e2 < gammaPosZ_cm->at(i) && gammaPosZ_cm->at(i) < 45e2        )
+```
+By default, some histograms will be built for absorbed SR photons between 40 m and 45 m.
+
+
 ```makefile
 SynradG4/ana/
 │
