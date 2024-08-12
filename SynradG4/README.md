@@ -6,7 +6,6 @@
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Simulation Parameters](#simulation-parameters)
 - [Directory Structure](#directory-structure)
 - [Analysis](#analysis)
 - [Contributing](#contributing)
@@ -14,14 +13,14 @@
 - [Contact](#contact)
 
 ## Project Description
-This project simulates the propagation of synchrotron radiation (SR) emited by 18-GeV electons through a vacuum beam pipe using the Geant4 toolkit. The primary goal is to model the interaction of SR photons with the beam pipe's material and calculate the reflection probability with different scattering models.
-Furthermore, there are dedicated to analyse the output data building histograms with absorbed SR photons on the vacuum beam pipe walls.
+This project simulates the propagation of synchrotron radiation (SR) emitted by 18-GeV electrons through a vacuum beam pipe using the Geant4 toolkit. The primary goal is to model the interaction of SR photons with the beam pipe's material and calculate the reflection probability with different scattering models.
+Furthermore, they are dedicated to analysing the output data building histograms with absorbed SR photons on the vacuum beam pipe walls.
 
 ## Features
 - **Geant4-based simulation**: Utilizes the Geant4 libraries for accurate photon propagation through the geometry.
 - **Custom geometry**: Define and simulate the vacuum beam pipe geometry.
 - **Tracking**: Track synchrotron radiation.
-- **Material interaction**: Simulate SR interactions with various materials through absorbtion on reflection on the vacuum-material border.
+- **Material interaction**: Simulate SR interactions with various materials through absorption on reflection on the vacuum-material border.
 - **Modular design**: Easily modify or extend the simulation components.
 
 ## Prerequisites
@@ -41,7 +40,7 @@ cd SynradG4/
 ```
 
 ### 2. Install Dependencies
-Ensure that Geant4, ROOT and other dependencies are installed on your system.
+Please ensure that Geant4, ROOT, and other dependencies are installed on your system.
 
 ### 3. Build the Project
 ```bash
@@ -71,10 +70,10 @@ After building the project, you can run the simulation using:
 Modify the configuration file `setup.xml` to adjust parameters such as:
 
 - SR photon reflection model
-- Data priting
+- Data printing
 - Surface roughness
 - Surface autocorrelation length
-- Surface roughness ration
+- Surface roughness ratio
 
 ```sql
 <xml>
@@ -93,13 +92,13 @@ In `run.mac` and `vis.mac`, define the number of initially generated electrons, 
 
 `$RANDOM` provides a seed for the random number generator used in the code
 
-### Geometry modelling
+### Geometry modeling
 
-There is a simple 50-m-long vacuum of the beam line pipe. After 5 m of a drift space there is a 5-m-long uniform dipole field region with 10 mrad of bending radius. A pencil beam of 18 GeV electrons is shot from (0;0;0) towards the positive direction of Z-axis. SR photons generated in the dipole field through the Geant4 process `G4SynchrotronRadiation` are propagated along the vacuum until absorbed. In the simulation, it is assumed that the beam pipe wall ouside the vacuum is made of copper with surface parameters described in the XML file. 
+There is a simple 50-m-long vacuum of the beamline pipe. After 5 m of a drift space, there is a 5-m-long uniform dipole field region with 10 mrad of bending radius. A pencil beam of 18 GeV electrons is shot from (0;0;0) towards the positive direction of the Z-axis. SR photons generated in the dipole field through the Geant4 process `G4SynchrotronRadiation` are propagated along the vacuum until absorbed. The simulation assumes that the beam pipe wall outside the vacuum is made of copper with surface parameters described in the XML file. 
 
 ### SR reflection model 
 
-There are four options for the SR reflection model to be used in the simulation. Most of them are for testing or benchmarking purpose, while the last in the list is used as the default one. Here is a brief descrition of the models:
+There are four options for the SR reflection model to be used in the simulation. Most of them are for testing or benchmarking purposes, while the last in the list is used as the default one. Here is a brief description of the models:
 
 0. Inherited from the recent Geant4 process `G4XrayReflection` with specular reflection only based on Névot-Croce attenuation factors [[Ref.](https://geant4.web.cern.ch/download/11.2.0.html)].
 1. Specular reflection process based on Debye–Waller attenuation factors [[Ref.](https://doi.org/10.1364/OSAC.422924)].
@@ -110,8 +109,8 @@ There are four options for the SR reflection model to be used in the simulation.
 The simulation will generate output files that include:
 
 - Generated electron beam parameters
-- SR photon production vertecies
-- Photon absorbtion coordinates, energy, and time
+- SR photon production vertices
+- Photon absorption coordinates, energy, and time
 - XML file and random seed
 
 ## Directory Structure
@@ -128,7 +127,7 @@ SynradG4/sim/
 ├── vis.mac               # Visualization file 
 ├── run.mac               # High statistics simulation file 
 ├── main.cc               # Main source file 
-├── materials/            # Reflection probability coeficient files 
+├── materials/            # Reflection probability coefficient files 
 ├── runAll.bash           # BASH script to automatically create a `run.mac` file  
 └── runScreens_scan.bash  # BASH script to submit multiple simulations on different CPUs 
 ```
@@ -151,7 +150,7 @@ hadd -f mainInDir/sim_output_all.root mainInDir/sim_output_*.root
 ./exe mainInDir sim_output_all.root outputDir ana_output_all.root treeName
 ```
 
-- `mainInDir` is the input directory where SR simulation output file are stored
+- `mainInDir` is the input directory where SR simulation output files are stored
 - `sim_output_all.root` contains data of all merged output files
 - `outputDir` output directory for the analysis
 - `ana_output_all` output analysis file name
