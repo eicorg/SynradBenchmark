@@ -133,8 +133,6 @@ SynradG4/sim/
 │
 ├── src/                  # Source files for the simulation
 ├── include/              # Header files
-├── build/                # Build directory
-├── output/               # Output data from simulations
 ├── CMakeLists.txt        # CMake build script
 ├── geometry/setup.xml    # Configuration file with SR reflection model
 ├── vis.mac               # Visualization file 
@@ -142,7 +140,7 @@ SynradG4/sim/
 ├── main.cc               # Main source file 
 ├── materials/            # Reflection probability coefficient files 
 ├── runAll.bash           # BASH script to automatically create a `run.mac` file  
-└── runScreens_scan.bash  # BASH script to submit multiple simulations on different CPUs 
+└── runScreens.bash       # BASH script to submit multiple simulations on different CPUs 
 ```
 
 ## Analysis
@@ -181,8 +179,6 @@ By default, some histograms will be built for absorbed SR photons between 40 m a
 SynradG4/ana/
 │
 ├── src/                  # Source and header files for the analysis
-├── build/                # Build directory
-├── output/               # Output data from analysis
 ├── CMakeLists.txt        # CMake build script
 └── runAna.bash           # BASH script to run the analysis 
 ```
