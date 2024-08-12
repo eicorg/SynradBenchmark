@@ -10,3 +10,4 @@ build*
 *.digested*
 *.pdf
 *.gp
+!SynradG4/pic.png
