@@ -101,9 +101,10 @@ There is a simple 50-m-long vacuum of the beam line pipe. After 5 m of a drift s
 
 There are four options for the SR reflection model to be used in the simulation. Most of them are for testing or benchmarking purpose, while the last in the list is used as the default one. Here is a brief descrition of the models:
 
-1. A
-2. B
-3. C
+0. Inherited from the recent Geant4 process `G4XrayReflection` with specular reflection only based on Névot-Croce attenuation factors [[Ref.](https://geant4.web.cern.ch/download/11.2.0.html)].
+1. Specular reflection process based on Debye–Waller attenuation factors [[Ref.](https://doi.org/10.1364/OSAC.422924)].
+2. Diffuse reflection without attenuation factors, similar to Synrad+ **old** model [[Ref.](https://molflow.web.cern.ch/node/116)].
+3. Diffuse reflection with Névot-Croce attenuation factors, similar to Synrad+ **new** model [[Ref.](https://molflow.web.cern.ch/node/116)].
 
 ### Output
 The simulation will generate output files that include:
@@ -127,7 +128,7 @@ SynradG4/sim/
 ├── vis.mac               # Visualization file 
 ├── run.mac               # High statistics simulation file 
 ├── main.cc               # Main source file 
-├── materials             # Reflection probability coeficient files 
+├── materials/            # Reflection probability coeficient files 
 ├── runAll.bash           # BASH script to automatically create a `run.mac` file  
 └── runScreens_scan.bash  # BASH script to submit multiple simulations on different CPUs 
 ```
@@ -178,5 +179,5 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 For any questions or further information, please contact:
 
-- Your Name - <natochii@bnl.gov>
+- Andrii Natochii - <natochii@bnl.gov>
 - GitHub: [nat93](https://github.com/nat93)
