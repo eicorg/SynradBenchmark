@@ -111,7 +111,7 @@ There is a simple 50-m-long vacuum of the beamline pipe. After 5 m of a drift sp
 
 ### SR reflection model 
 
-There are four options for the SR reflection model to be used in the simulation. Most of them are for testing or benchmarking purposes, while the last in the list is used as the default one. Here is a brief description of the models:
+There are four options for the SR reflection model to be used in the simulation. Most of them are for testing or benchmarking purposes, while the last in the list `#3` is used as the default one. Here is a brief description of the models:
 
 0. Inherited from the recent Geant4 process `G4XrayReflection` with specular reflection only and based on Névot-Croce attenuation factors [[Ref.](https://geant4.web.cern.ch/download/11.2.0.html)].
 1. Specular reflection process based on Debye–Waller attenuation factors [[Ref.](https://doi.org/10.1364/OSAC.422924)].
