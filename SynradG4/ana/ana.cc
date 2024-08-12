@@ -39,8 +39,8 @@ int main(int argc, char* argv[])
 	{
 		cout<<"\n\n=================================================================="<<endl;
 		cout<<"[ERROR] main ==> Wrong number of input parameters: argc = "<<argc<<endl;
-		cout<<"Usage: [executable] [input file directory] [input file name] [output file directory] [output file name pattern] [input tree name]"<<endl;
-		cout<<"Example: ./exe ../../geant4_sim/output output_*.root ../output output tree"<<endl;
+		cout<<"Usage: [executable] [input file directory] [input file name] [output file directory] [output file name] [input tree name]"<<endl;
+		cout<<"Example: ./exe ../../geant4_sim/output sim_output.root ../output ana_output.root tree"<<endl;
 		cout<<"==================================================================\n"<<endl;
 
 		return -1;
@@ -49,7 +49,7 @@ int main(int argc, char* argv[])
     	AnalysisSR* ana = new AnalysisSR();
 
     	ana->SetInputFileName(mainInDir+"/"+inputFileName);
-    	ana->SetOutputFileNameRoot(mainOutDir+"/"+outputFileName+".root");
+    	ana->SetOutputFileNameRoot(mainOutDir+"/"+outputFileName);
     	ana->Init(treeName);
 
     	cout<<"[INFO] Input file name: "<<ana->GetInputFileName()<<endl;

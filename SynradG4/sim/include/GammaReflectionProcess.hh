@@ -114,10 +114,7 @@ private:
 
 	G4double fSurfaceRoughness, fAutoCorrLength, fSigmaRatio;
 	G4NistManager* fNistManager;
-	G4Material* theMatIP;
-	G4Material* theMatIR;
-	G4Material* theMatTaggerFoil;
-	G4Material* theMatLumiExitWindow;
+	G4Material* theMaterial;
 	G4int fReflectionType;
 };
 

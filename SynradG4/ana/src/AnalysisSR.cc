@@ -142,7 +142,7 @@ void AnalysisSR::Loop()
 		{
 			//---------------------------------------------------------------------------
 			// for benchmark/debug
-			if(	40e2 < gammaPosZ_cm->at(i) && gammaPosZ_cm->at(i) < 45e2	) // around the IP
+			if(	40e2 < gammaPosZ_cm->at(i) && gammaPosZ_cm->at(i) < 45e2	) // Region of interest 
 			{
 				h1_ene->Fill(gammaEnergy_eV->at(i));
 				h1_dirx->Fill(gammaMomX_eV->at(i)/gammaEnergy_eV->at(i));

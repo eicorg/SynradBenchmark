@@ -37,7 +37,7 @@ do
 	rm -rf ${mainInDir}/output_all.root
 	hadd -f ${mainInDir}/output_all.root ${mainInDir}/output_*.root
 
-	com="./exe ${mainInDir} output_all.root ${outputDir} output_all ${treeName}"
+	com="./exe ${mainInDir} output_all.root ${outputDir} output_all.root ${treeName}"
 	com="${com} &> ${outputDir}/logExe_ana.txt"
 	echo "$com" >> runAll.sh
 	chmod a+x runAll.sh

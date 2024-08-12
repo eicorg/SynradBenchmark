@@ -22,7 +22,8 @@ void SteppingAction::UserSteppingAction(const G4Step *step)
 	//- Kill primaries leaving the vacuum
 	if(	track->GetTrackID() == 1 && // primary particle
 		postStep->GetStepStatus() == fGeomBoundary && // at boundary
-		postPV->GetName() == "world") // entering world
+		postPV->GetName() == "world" // entering world
+	)
 	{
 		runAction->_beamKillPosX.push_back(postStep->GetPosition().getX()/cm);
 		runAction->_beamKillPosY.push_back(postStep->GetPosition().getY()/cm);
@@ -34,8 +35,9 @@ void SteppingAction::UserSteppingAction(const G4Step *step)
 	//--------------------------------------------------------------------------//
 	//-- Store killed photon info
 	// check if the track (=gamma) is killed
-	if(/*postPV && */track->GetTrackStatus() == fStopAndKill && 
-		track->GetParticleDefinition()->GetPDGEncoding() == G4Gamma::Gamma()->GetPDGEncoding())
+	if(	track->GetTrackStatus() == fStopAndKill && 
+		track->GetParticleDefinition()->GetPDGEncoding() == G4Gamma::Gamma()->GetPDGEncoding()
+	)
 	{	
 		if(!postPV)
 		{
