@@ -29,8 +29,8 @@ Furthermore, there is a code dedicated to analyzing the output data and building
 - **Operating System**: Linux or macOS
 - **C++ Compiler**: GCC or Clang
 - **Geant4 Toolkit**: Version 11.0 or later
-- **CMake**: Version 3.12 or later
-- **ROOT**: Version 6.32 or later, for the output data storage and analysis 
+- **CMake**: Version 3.5 or later
+- **ROOT**: Version 6.24 or later, for the output data storage and analysis 
 - **Qt5** (Option): For visualization
 
 ## Installation
