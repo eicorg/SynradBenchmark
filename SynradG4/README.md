@@ -14,18 +14,19 @@
 
 ## Project Description
 This project simulates the propagation of synchrotron radiation (SR) emitted by 18-GeV electrons through a vacuum beam pipe using the Geant4 toolkit. The primary goal is to model the interaction of SR photons with the beam pipe's material and calculate the reflection probability with different scattering models.
-Furthermore, they are dedicated to analysing the output data building histograms with absorbed SR photons on the vacuum beam pipe walls.
+
+Furthermore, there is a code dedicated to analyzing the output data and building histograms with absorbed SR photons on the vacuum beam pipe walls.
 
 ## Features
 - **Geant4-based simulation**: Utilizes the Geant4 libraries for accurate photon propagation through the geometry.
-- **Custom geometry**: Define and simulate the vacuum beam pipe geometry.
-- **Tracking**: Track synchrotron radiation.
-- **Material interaction**: Simulate SR interactions with various materials through absorption on reflection on the vacuum-material border.
-- **Modular design**: Easily modify or extend the simulation components.
+- **Custom geometry**: Defines and simulates the vacuum.
+- **Tracking**: Tracks SR photons.
+- **Material interaction**: Simulates SR interactions with various materials through absorption or reflection on the vacuum-material border.
+- **Modular design**: Easily modifies and extends the simulation components.
 
 ## Prerequisites
-- **Operating System**: Linux, macOS, or Windows
-- **C++ Compiler**: GCC, Clang, or MSVC with C++17 support
+- **Operating System**: Linux or macOS
+- **C++ Compiler**: GCC or Clang
 - **Geant4 Toolkit**: Version 11.0 or later
 - **CMake**: Version 3.12 or later
 - **ROOT**: Version 6.32 or later, for the output data storage and analysis 
@@ -33,7 +34,7 @@ Furthermore, they are dedicated to analysing the output data building histograms
 
 ## Installation
 
-### 1. Unzip the code arciver 
+### 1. Unzip the code 
 ```bash
 tar -xvf SynradG4.tar.gz
 cd SynradG4/
@@ -90,7 +91,7 @@ Modify the configuration file `setup.xml` to adjust parameters such as:
 
 In `run.mac` and `vis.mac`, define the number of initially generated electrons, visualization parameters, and the output file name.
 
-`$RANDOM` provides a seed for the random number generator used in the code
+`$RANDOM` provides a seed for the random number generator used in the code.
 
 ### Geometry modeling
 
@@ -100,7 +101,7 @@ There is a simple 50-m-long vacuum of the beamline pipe. After 5 m of a drift sp
 
 There are four options for the SR reflection model to be used in the simulation. Most of them are for testing or benchmarking purposes, while the last in the list is used as the default one. Here is a brief description of the models:
 
-0. Inherited from the recent Geant4 process `G4XrayReflection` with specular reflection only based on Névot-Croce attenuation factors [[Ref.](https://geant4.web.cern.ch/download/11.2.0.html)].
+0. Inherited from the recent Geant4 process `G4XrayReflection` with specular reflection only and based on Névot-Croce attenuation factors [[Ref.](https://geant4.web.cern.ch/download/11.2.0.html)].
 1. Specular reflection process based on Debye–Waller attenuation factors [[Ref.](https://doi.org/10.1364/OSAC.422924)].
 2. Diffuse reflection without attenuation factors, similar to `Synrad+` **old** model [[Ref.](https://molflow.web.cern.ch/node/116)].
 3. Diffuse reflection with Névot-Croce attenuation factors, similar to `Synrad+` **new** model [[Ref.](https://molflow.web.cern.ch/node/116)].
