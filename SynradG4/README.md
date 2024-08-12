@@ -103,8 +103,8 @@ There are four options for the SR reflection model to be used in the simulation.
 
 0. Inherited from the recent Geant4 process `G4XrayReflection` with specular reflection only based on Névot-Croce attenuation factors [[Ref.](https://geant4.web.cern.ch/download/11.2.0.html)].
 1. Specular reflection process based on Debye–Waller attenuation factors [[Ref.](https://doi.org/10.1364/OSAC.422924)].
-2. Diffuse reflection without attenuation factors, similar to Synrad+ **old** model [[Ref.](https://molflow.web.cern.ch/node/116)].
-3. Diffuse reflection with Névot-Croce attenuation factors, similar to Synrad+ **new** model [[Ref.](https://molflow.web.cern.ch/node/116)].
+2. Diffuse reflection without attenuation factors, similar to `Synrad+` **old** model [[Ref.](https://molflow.web.cern.ch/node/116)].
+3. Diffuse reflection with Névot-Croce attenuation factors, similar to `Synrad+` **new** model [[Ref.](https://molflow.web.cern.ch/node/116)].
 
 ### Output
 The simulation will generate output files that include:
