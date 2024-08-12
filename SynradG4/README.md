@@ -165,7 +165,7 @@ hadd -f mainInDir/sim_output_all.root mainInDir/sim_output_*.root
 - `sim_output_all.root` contains data of all merged output files
 - `outputDir` output directory for the analysis
 - `ana_output_all` output analysis file name
-- `treeName` is the name of the tree with SR data in `sim_output_all.root`
+- `treeName` is the name of the ROOT Tree with SR data in `sim_output_all.root`
 
 In the file `SynradG4/ana/src/AnalysisSR.cc`, one can define the region of ineterest for detailed SR distributions:
 ```bash

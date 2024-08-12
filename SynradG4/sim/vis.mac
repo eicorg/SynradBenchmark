@@ -3,8 +3,8 @@
 /event/verbose 0
 /tracking/verbose 0
 ##-----------------------------------------##
-/output/filename ./output.root
-/stack/killsecondaries 0
+/output/filename ./sim_output.root
+/stack/killsecondaries 0 # kill all secondaries
 /run/initialize
 
 /vis/open OGL
