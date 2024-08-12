@@ -81,11 +81,20 @@ Modify the configuration file `setup.xml` to adjust parameters such as:
 <xml>
 	<!-- synrad model -->
 	<srmodel>
-		<sec desc="SR photon reflection process: 0 - Geant4 (Xray,Névot-Croce); 1 - Synrad+ (Gamma,Debye-Waller); 2 - Synrad+ (Gamma,perturb norm - old model); 3 - Synrad+ (Gamma,Debye-Waller,perturb refl - new model)" name="type">3</sec>
-		<sec desc="Print SR photon reflection data: 1 - true; 0 - false" name="print">1</sec>
-		<sec desc="Surface roughness" name="roughness" unit="m">50e-9</sec>
-		<sec desc="Surface autocorrelation length" name="corrlength" unit="m">10000e-9</sec>
-		<sec desc="Surface roughness ratio" name="sigma" unit="">5e-3</sec>
+		<sec desc="SR photon reflection process: 
+			0 - Geant4 (Xray,Névot-Croce); 
+			1 - Synrad+ (Gamma,Debye-Waller); 
+			2 - Synrad+ (Gamma,perturb norm - old model); 
+			3 - Synrad+ (Gamma,Debye-Waller,perturb refl - new model)" name="type">3</sec>
+		<sec desc="Print SR photon reflection data: 
+			1 - true; 
+			0 - false" name="print">1</sec>
+		<sec desc="Surface roughness" 
+			name="roughness" unit="m">50e-9</sec>
+		<sec desc="Surface autocorrelation length" 
+			name="corrlength" unit="m">10000e-9</sec>
+		<sec desc="Surface roughness ratio" 
+			name="sigma" unit="">5e-3</sec>
 	</srmodel>
 </xml>
 ```
