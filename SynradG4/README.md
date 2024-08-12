@@ -93,6 +93,18 @@ In `run.mac` and `vis.mac`, define the number of initially generated electrons, 
 
 `$RANDOM` provides a seed for the random number generator used in the code
 
+### Geometry modelling
+
+There is a simple 50-m-long vacuum of the beam line pipe. After 5 m of a drift space there is a 5-m-long uniform dipole field region with 10 mrad of bending radius. A pencil beam of 18 GeV electrons is shot from (0;0;0) towards the positive direction of Z-axis. SR photons generated in the dipole field through the Geant4 process `G4SynchrotronRadiation` are propagated along the vacuum until absorbed. In the simulation, it is assumed that the beam pipe wall ouside the vacuum is made of copper with surface parameters described in the XML file. 
+
+### SR reflection model 
+
+There are four options for the SR reflection model to be used in the simulation. Most of them are for testing or benchmarking purpose, while the last in the list is used as the default one. Here is a brief descrition of the models:
+
+1. A
+2. B
+3. C
+
 ### Output
 The simulation will generate output files that include:
 
