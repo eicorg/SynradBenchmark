@@ -98,7 +98,7 @@ void DetectorConstruction::CreateBeamPipeSolid()
 	new G4PVPlacement(0,G4ThreeVector(0,0,D1_L/2.),
 		beampipeVac_log,"vac_beampipe",world_log,false,0,true);
 	//- Visualization
-	G4VisAttributes* beampipeVac_vis = new G4VisAttributes(G4Color::Grey());
+	G4VisAttributes* beampipeVac_vis = new G4VisAttributes(G4Color::White());
 	beampipeVac_vis->SetVisibility(visibility);
 	beampipeVac_log->SetVisAttributes(beampipeVac_vis);
 
@@ -155,6 +155,10 @@ void DetectorConstruction::CreateBeamPipeSolid()
 	dipole_rot->rotateX(-M_PI/2.);
 	new G4PVPlacement(dipole_rot,G4ThreeVector(-B1_R,0,D1_L),
 		dipole_log,"mag_dipole",world_log,false,0,true);
+
+	//- Visualization
+	G4VisAttributes* dipole_vis = new G4VisAttributes(G4Color::Red());
+	dipole_log->SetVisAttributes(dipole_vis);
 	//====================================//
 	//====================================//
 	//====================================//
