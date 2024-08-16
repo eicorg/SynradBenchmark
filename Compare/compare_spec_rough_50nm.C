@@ -92,39 +92,60 @@ void compare_spec_rough_50nm(
 	// plot data
 	TCanvas* c0 = new TCanvas("c0","c0",900,900);
 	c0->cd();
+	TPad* p0 = new TPad("p0","p0",0,0,1,1);
+   	p0->SetTopMargin(0.1);
+	p0->SetBottomMargin(0.14);
+	p0->SetLeftMargin(0.14);
+	p0->SetRightMargin(0.1);
+	p0->Draw();
+	p0->cd();
 
-	h1_ene_synradg4->Rebin(10);
-	h1_ene_synradrl->Rebin(10);
+	h1_ene_synradg4->Rebin(20);
+	h1_ene_synradrl->Rebin(20);
 	cout<<"[INFO] Energy binning:"<<endl;
 	cout<<" - h1_ene_synradg4 bin width = "<<h1_ene_synradg4->GetXaxis()->GetBinWidth(1)<<" [eV]"<<endl;
 	cout<<" - h1_ene_synradrl bin width = "<<h1_ene_synradrl->GetXaxis()->GetBinWidth(1)<<" [eV]"<<endl;
 
-	h1_ene_synradg4->SetLineWidth(1);
+	h1_ene_synradg4->SetLineWidth(2);
 	h1_ene_synradrl->SetLineWidth(1);
 
-	h1_ene_synradg4->SetLineColor(kRed);
+	h1_ene_synradg4->SetLineColor(kBlue);
 	h1_ene_synradrl->SetLineColor(kGreen+2);
 
-	h1_ene_synradg4->SetFillColorAlpha(kRed,0.2);
-	h1_ene_synradrl->SetFillColorAlpha(kGreen+2,0.2);
+	h1_ene_synradg4->SetFillColorAlpha(kBlue,0.2);
+	h1_ene_synradrl->SetFillStyle(3605);
+	h1_ene_synradrl->SetFillColorAlpha(kGreen+2,0.6);
 
-	h1_ene_synradg4->GetXaxis()->SetRangeUser(0,10e3);
-	h1_ene_synradg4->SetMinimum(1e10);
-	h1_ene_synradg4->SetMaximum(1e19);
+	h1_ene_synradg4->GetXaxis()->SetRangeUser(0,20e3);
+	h1_ene_synradg4->SetMinimum(1e13);
+	h1_ene_synradg4->SetMaximum(1e17);
+
+	h1_ene_synradg4->GetYaxis()->SetLabelSize(0.04);
+	h1_ene_synradg4->GetXaxis()->SetLabelSize(0.04);
+	h1_ene_synradg4->GetYaxis()->SetTitleSize(0.04);
+	h1_ene_synradg4->GetXaxis()->SetTitleSize(0.04);
+	h1_ene_synradg4->GetYaxis()->SetTitleOffset(1.6);
+	h1_ene_synradg4->GetXaxis()->SetTitleOffset(1.2);
+	h1_ene_synradg4->GetYaxis()->SetNdivisions(5);
+	h1_ene_synradg4->SetTitle("");
+	h1_ene_synradg4->GetYaxis()->SetTitle("Photon Rate [Hz]");
 
 	h1_ene_synradg4->Draw("HIST");
 	h1_ene_synradrl->Draw("SAME & HIST");
 
-	TLegend* leg0 = new TLegend(0.6,0.7,0.9,0.9);
+	TLegend* leg0 = new TLegend(0.55,0.8,0.9,0.9);
 	leg0->AddEntry(h1_ene_synradg4,"SynradG4","f");
-	leg0->AddEntry(h1_ene_synradrl,"Geant4-rel.","f");
+	leg0->AddEntry(h1_ene_synradrl,"Geant4-11.2.0","f");
+	leg0->SetTextSize(0.04);
 	leg0->Draw();
 
-	gPad->SetGrid();
+//	gPad->SetGrid();
 	gPad->SetLogy();
+	gPad->SetLogx();
 
-	c0->SaveAs("./pics/c0.png");
-
+	c0->SaveAs("./pics/setup2.png");
+	c0->SaveAs("./pics/setup2.pdf");
+/*
 	//=========================================================================================//
 	TCanvas* c1 = new TCanvas("c1","c1",1800,900);
 	c1->Divide(3,2);

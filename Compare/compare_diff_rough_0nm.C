@@ -150,53 +150,74 @@ void compare_diff_rough_0nm(
 	// plot data
 	TCanvas* c0 = new TCanvas("c0","c0",900,900);
 	c0->cd();
+	TPad* p0 = new TPad("p0","p0",0,0,1,1);
+   	p0->SetTopMargin(0.1);
+	p0->SetBottomMargin(0.14);
+	p0->SetLeftMargin(0.14);
+	p0->SetRightMargin(0.1);
+	p0->Draw();
+	p0->cd();
 
-	h1_ene_synradp->Rebin(10);
-	h1_ene_synrad3d->Rebin(10);
-	h1_ene_synradg4->Rebin(10);
-	h1_ene_synradrl->Rebin(10);
+	h1_ene_synradp->Rebin(20);
+	h1_ene_synrad3d->Rebin(20);
+	h1_ene_synradg4->Rebin(20);
+	h1_ene_synradrl->Rebin(20);
 	cout<<"[INFO] Energy binning:"<<endl;
 	cout<<" - h1_ene_synradp bin width = "<<h1_ene_synradp->GetXaxis()->GetBinWidth(1)<<" [eV]"<<endl;
 	cout<<" - h1_ene_synrad3d bin width = "<<h1_ene_synrad3d->GetXaxis()->GetBinWidth(1)<<" [eV]"<<endl;
 	cout<<" - h1_ene_synradg4 bin width = "<<h1_ene_synradg4->GetXaxis()->GetBinWidth(1)<<" [eV]"<<endl;
 	cout<<" - h1_ene_synradrl bin width = "<<h1_ene_synradrl->GetXaxis()->GetBinWidth(1)<<" [eV]"<<endl;
 
-	h1_ene_synradp->SetLineWidth(4);
-	h1_ene_synrad3d->SetLineWidth(3);
-	h1_ene_synradg4->SetLineWidth(1);
+	h1_ene_synradp->SetLineWidth(2);
+	h1_ene_synrad3d->SetLineWidth(5);
+	h1_ene_synradg4->SetLineWidth(2);
 	h1_ene_synradrl->SetLineWidth(1);
 
-	h1_ene_synradp->SetLineColor(kBlack);
-	h1_ene_synrad3d->SetLineColor(kBlue);
-	h1_ene_synradg4->SetLineColor(kRed);
+	h1_ene_synradp->SetLineColor(kRed);
+	h1_ene_synrad3d->SetLineColor(kBlack);
+	h1_ene_synradg4->SetLineColor(kBlue);
 	h1_ene_synradrl->SetLineColor(kGreen+2);
 
-	h1_ene_synrad3d->SetFillStyle(3345);
-	h1_ene_synrad3d->SetFillColorAlpha(kBlue,0.2);
-	h1_ene_synradg4->SetFillColorAlpha(kRed,0.2);
-	h1_ene_synradrl->SetFillColorAlpha(kGreen+2,0.2);
+	h1_ene_synradp->SetFillStyle(3654);
+	h1_ene_synradp->SetFillColorAlpha(kRed,0.6);
+	h1_ene_synradg4->SetFillColorAlpha(kBlue,0.2);
+	h1_ene_synradrl->SetFillStyle(3605);
+	h1_ene_synradrl->SetFillColorAlpha(kGreen+2,0.6);
 
-	h1_ene_synradp->GetXaxis()->SetRangeUser(0,10e3);
-	h1_ene_synradp->SetMinimum(1e10);
-	h1_ene_synradp->SetMaximum(1e19);
+	h1_ene_synrad3d->GetXaxis()->SetRangeUser(0,20e3);
+	h1_ene_synrad3d->SetMinimum(1e13);
+	h1_ene_synrad3d->SetMaximum(1e17);
 
-	h1_ene_synradp->Draw("HIST");
-	h1_ene_synrad3d->Draw("SAME & HIST");
+	h1_ene_synrad3d->GetYaxis()->SetLabelSize(0.04);
+	h1_ene_synrad3d->GetXaxis()->SetLabelSize(0.04);
+	h1_ene_synrad3d->GetYaxis()->SetTitleSize(0.04);
+	h1_ene_synrad3d->GetXaxis()->SetTitleSize(0.04);
+	h1_ene_synrad3d->GetYaxis()->SetTitleOffset(1.6);
+	h1_ene_synrad3d->GetXaxis()->SetTitleOffset(1.2);
+	h1_ene_synrad3d->GetYaxis()->SetNdivisions(5);
+	h1_ene_synrad3d->SetTitle("");
+	h1_ene_synrad3d->GetYaxis()->SetTitle("Photon Rate [Hz]");
+
+	h1_ene_synrad3d->Draw("HIST");
 	h1_ene_synradg4->Draw("SAME & HIST");
+	h1_ene_synradp->Draw("SAME & HIST");
 	h1_ene_synradrl->Draw("SAME & HIST");
 
-	TLegend* leg0 = new TLegend(0.6,0.7,0.9,0.9);
-	leg0->AddEntry(h1_ene_synradp,"Synrad+","f");
+	TLegend* leg0 = new TLegend(0.55,0.7,0.9,0.9);
 	leg0->AddEntry(h1_ene_synrad3d,"Synrad3D","f");
+	leg0->AddEntry(h1_ene_synradp,"Synrad+","f");
 	leg0->AddEntry(h1_ene_synradg4,"SynradG4","f");
-	leg0->AddEntry(h1_ene_synradrl,"Geant4-rel.","f");
+	leg0->AddEntry(h1_ene_synradrl,"Geant4-11.2.0","f");
+	leg0->SetTextSize(0.04);
 	leg0->Draw();
 
-	gPad->SetGrid();
+//	gPad->SetGrid();
 	gPad->SetLogy();
+	gPad->SetLogx();
 
-	c0->SaveAs("./pics/c0.png");
-
+	c0->SaveAs("./pics/setup1.png");
+	c0->SaveAs("./pics/setup1.pdf");
+/*
 	//=========================================================================================//
 	TCanvas* c1 = new TCanvas("c1","c1",1800,900);
 	c1->Divide(3,2);
