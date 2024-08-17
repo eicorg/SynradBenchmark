@@ -4,7 +4,7 @@ const Double_t nElectrons_synradg4 = 10*1000000; // N files x M e-/file
 void compare_diff_rough_50nm(	
 			TString fName_synradp = "../Synrad+/ana/output_diff/output_all.root",
 			TString fName_synrad3d = "../Synrad3D/ana/output_diff/output_all.root",
-			TString fName_synradg4 = "../SynradG4/ana/output_0/output_all.root"
+			TString fName_synradg4 = "../SynradG4/ana/output_0/sim_output_all.root"
 	)
 {
 	const Double_t minDirx = -0.13, maxDirx =  0.01;
