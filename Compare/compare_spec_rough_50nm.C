@@ -113,8 +113,8 @@ void compare_spec_rough_50nm(
 	h1_ene_synradrl->SetLineColor(kGreen+2);
 
 	h1_ene_synradg4->SetFillColorAlpha(kBlue,0.2);
-	h1_ene_synradrl->SetFillStyle(3605);
-	h1_ene_synradrl->SetFillColorAlpha(kGreen+2,0.6);
+	h1_ene_synradrl->SetFillStyle(3395);
+	h1_ene_synradrl->SetFillColorAlpha(kGreen+2,0.8);
 
 	h1_ene_synradg4->GetXaxis()->SetRangeUser(0,20e3);
 	h1_ene_synradg4->SetMinimum(1e13);

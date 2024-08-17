@@ -184,12 +184,12 @@ data_trks = pd.read_csv(
 # Create the scatter plot
 fig, ax = plt.subplots(2, 1,figsize=(8,8))
 # set the spacing between subplots
-plt.subplots_adjust(left=0.1,
+plt.subplots_adjust(left=0.18,
                     bottom=0.1, 
                     right=0.9, 
                     top=0.9, 
                     wspace=0.4, 
-                    hspace=0.4)
+                    hspace=0.6)
 #---------------------------------------------------------------------------------------#
 # Draw the orbit in the XYZ system
 z_orbit = []
@@ -316,25 +316,29 @@ for index in photon_indexes:
 # Drawing settings
 
 # Axis title
-ax[0].set_xlabel('S [m]')
-ax[0].set_ylabel('X [m]')
-ax[1].set_xlabel(r'$\rm Z_{glob.}$ [m]')
-ax[1].set_ylabel(r'$\rm X_{glob.}$ [m]')
+ax[0].set_xlabel('S [m]', fontsize = 20)
+ax[0].set_ylabel('X [m]', fontsize = 20)
+ax[1].set_xlabel(r'$\rm Z_{glob.}$ [m]', fontsize = 20)
+ax[1].set_ylabel(r'$\rm X_{glob.}$ [m]', fontsize = 20)
+
+# Axis tick size
+ax[0].tick_params(axis='both', which='major', labelsize=20)
+ax[1].tick_params(axis='both', which='major', labelsize=20)
 
 # Add title
-ax[0].set_title('SR tracks in the X-S coordinate system')
-ax[1].set_title('SR tracks in the X-Z global coordinate system')
+ax[0].set_title('SR tracks in the X-S beam coordinate system', fontsize = 20)
+ax[1].set_title('SR tracks in the X-Z global coordinate system', fontsize = 20)
 
 # Add a grid
 ax[0].grid(True, linestyle='--', alpha=0.7)
 ax[1].grid(True, linestyle='--', alpha=0.7)
 # Set ranges
-ax[0].set_xlim([-10, 60])
-ax[1].set_xlim([-10, 60])
+ax[0].set_xlim([-5, 55])
+ax[1].set_xlim([-5, 55])
+ax[1].set_ylim([-0.5, 0.3])
 
 # Draw legend
-ax[0].legend()
-ax[1].legend()
+ax[1].legend(loc=1, prop={'size': 12})
 
 fig.savefig(fFigName)	# save the figure to file
 
