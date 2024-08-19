@@ -145,7 +145,7 @@ void compare_spec_rough_50nm(
 
 	c0->SaveAs("./pics/setup2.png");
 	c0->SaveAs("./pics/setup2.pdf");
-/*
+
 	//=========================================================================================//
 	TCanvas* c1 = new TCanvas("c1","c1",1800,900);
 	c1->Divide(3,2);
