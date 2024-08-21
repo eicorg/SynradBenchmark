@@ -64,8 +64,8 @@ to compare SynradG4 and Geant4-11.2.0 for RMS roughness = 50 nm -- specular refl
 
 Contributions to SynradBenchmark are welcome! Feel free to open issues, submit pull requests, or suggest improvements.
 
-### Author
-Andrii Natochii
+## Contact
 
-E-mail: [natochii@bnl.gov](mailto:natochii@bnl.gov)
+For any questions or further information, please contact:
 
+- Andrii Natochii - <natochii@bnl.gov>
