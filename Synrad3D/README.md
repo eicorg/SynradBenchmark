@@ -52,6 +52,9 @@ For more detailes about how to run the simulation, collect data, define surface 
 python ana1.py   
 ```
 to convert the output Synrad3D ASCII file into another ASCII file for further analysis. It is possible to edit the script by uncommenting the corresponding line to draw the SR photon tracks;
+
+![Alt text](pic.png)
+
 ```bash
 root -l -b -q ana2.C 
 ```
