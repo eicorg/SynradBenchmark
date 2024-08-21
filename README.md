@@ -50,5 +50,6 @@ Contributions to SynradBenchmark are welcome! Feel free to open issues, submit p
 
 ### Author
 Andrii Natochii
+
 E-mail: [natochii@bnl.gov](mailto:natochii@bnl.gov)
 
