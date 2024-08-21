@@ -9,51 +9,57 @@
 - [Contact](#contact)
 
 ## Project Description
-This project simulates the propagation of synchrotron radiation (SR) emitted by 18-GeV electrons through a vacuum beam pipe using the Synrad+ framework.
+This project simulates the propagation of synchrotron radiation (SR) emitted by 18-GeV electrons through a vacuum beam pipe using the Synrad3D framework.
 
 Furthermore, there is a code dedicated to analyzing the output data and building histograms with absorbed SR photons on the vacuum beam pipe walls.
 
 ## Prerequisites
 - **Operating System**: Linux or macOS
-- **C++ Compiler**: GCC or Clang
-- **Synrad+ toolkit**: Version 1.4.34 or later
-- **CMake**: Version 3.5 or later
-- **ROOT**: Version 6.24 or later, for the output data storage and analysis 
+- **Bmad toolkit**: Version 1.4.34 or later
+- **ROOT**: Version 6.24 or later, for the output data storage and analysis
+- **Python**: Version 3.10 or later 
 
 ## Installation
 
 ### 1. Clone 
 ```bash
 git clone https://github.com/nat93/SynradBenchmark.git
-cd SynradBenchmark/Synrad+/
+cd SynradBenchmark/Synrad3D/
 ```
 
 ### 2. Install Dependencies
-Please ensure that Synrad+, ROOT, and other dependencies are installed on your system.
+Please ensure that Bmad/Synrad3D, ROOT, and other dependencies are installed on your system.
 
 ## Usage
 
 ### Running the Simulation
-1. Go to `Synrad+/sim`
-2. Run the Synrad+ graphic-user interface (GUI)
-3. Load the setup file called `simple_spec.syn` or `simple_diff.syn` for specular or diffuse photon reflection study, respectively
-4. Run the simulation and collect absorbed photon information into CSV files using the Synrad+ GUI menu: `Tools` - `Particle logger` - `Enable logging` (select the facet and the number of recorded hits)
+1. Go to `Synrad3D/sim`
+2. Load the reflection data tables in `reflectivity/`, read the `README` file there about how to run it
+3. Edit the initialization script called `synrad3d_spec.init`, `synrad3d_diff.init`, or `synrad3d_track.init` for specular, diffuse reflection, or SR photon track drawing, respectively.
+4. Run
+```bash
+synrad3d synrad3d_<config>.init
+```
+where `<config>` is `spec`, `diff`, or `track`. The program reads the initialization file, where the beam pipe wall file name `synrad3d.wall3d` is defined. This files contains the geometry desription.
+5. The output files will be stored in the `output_<config>/` directory
 
-For more detailes about how to run the simulation, collect data, define surface properties, please refer to [Synrad+ Documentation](https://molflow.web.cern.ch/node/110).
-
-### Geometry modeling
-
-There is a simple 50-m-long vacuum of the beamline pipe. After 5 m of a drift space, there is a 5-m-long uniform dipole field region with 10 mrad of bending radius. A pencil beam of 18 GeV electrons is shot from (0;0;0) towards the positive direction of the Z-axis. SR photons generated in the dipole field are propagated along the vacuum until absorbed. The simulation assumes that the beam pipe wall outside the vacuum is made of copper.
-
-![Alt text](pic.png)
+For more detailes about how to run the simulation, collect data, define surface properties, please refer to [Synrad3D Documentation](https://www.classe.cornell.edu/bmad/manuals/synrad3d.pdf).
 
 ### Running the Analysis
-1. After collecting the absorbed SR photon data, go to `Synrad+/ana`
+1. After collecting the absorbed SR photon data, go to `Synrad3D/ana`
 2. Run
 ```bash
-root -l -b -q ana.C   
+python ana1.py   
 ```
-The script read the `Synrad+/ana/fileList.txt` file with the list of output Synrad+ simulation file names, and produces an output ROOT file used by the benchmark.
+to convert the output Synrad3D ASCII file into another ASCII file for further analysis. It is possible to edit the script by uncommenting the corresponding line to draw the SR photon tracks;
+```bash
+root -l -b -q ana2.C 
+```
+to convert the new ASCII file into a ROOT file with a ROOT Tree;
+```bash
+root -l -b -q ana3.C   
+```
+to produce an output ROOT file used by the benchmark.
 
 ## Contributing
 
