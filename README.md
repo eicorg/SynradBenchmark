@@ -48,7 +48,7 @@ Please navigate to `README` files in each framework directory.
 
 Contributions to SynradBenchmark are welcome! Feel free to open issues, submit pull requests, or suggest improvements.
 
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
+### Author
+Andrii Natochii
+E-mail: [natochii@bnl.gov](mailto:natochii@bnl.gov)
 
