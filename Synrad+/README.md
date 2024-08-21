@@ -15,9 +15,7 @@ Furthermore, there is a code dedicated to analyzing the output data and building
 
 ## Prerequisites
 - **Operating System**: Linux or macOS
-- **C++ Compiler**: GCC or Clang
 - **Synrad+ toolkit**: Version 1.4.34 or later
-- **CMake**: Version 3.5 or later
 - **ROOT**: Version 6.24 or later, for the output data storage and analysis 
 
 ## Installation
