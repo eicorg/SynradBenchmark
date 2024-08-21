@@ -10,7 +10,6 @@
 - [Analysis](#analysis)
 - [Analysis Directory Structure](#analysis-directory-structure)
 - [Contributing](#contributing)
-- [License](#license)
 - [Contact](#contact)
 
 ## Project Description
