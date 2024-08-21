@@ -5,11 +5,7 @@
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Simulation Directory Structure](#simulation-directory-structure)
-- [Analysis](#analysis)
-- [Analysis Directory Structure](#analysis-directory-structure)
 - [Contributing](#contributing)
-- [License](#license)
 - [Contact](#contact)
 
 ## Project Description
@@ -43,9 +39,11 @@ Please ensure that Synrad+, ROOT, and other dependencies are installed on your s
 3. Load the setup file called `simple_spec.syn` or `simple_diff.syn` for specular or diffuse photon reflection study, respectively
 4. Run the simulation and collect absorbed photon information into CSV files using the Synrad+ GUI menu: `Tools` --> `Particle logger` --> `Enable logging` (select the facet and the number of recorded hits)
 
+For more detailes about how to run the simulation, collect data, define surface properties, please refer to [Synrad+ Documentation](https://molflow.web.cern.ch/node/110).
+
 ### Geometry modeling
 
-There is a simple 50-m-long vacuum of the beamline pipe. After 5 m of a drift space, there is a 5-m-long uniform dipole field region with 10 mrad of bending radius. A pencil beam of 18 GeV electrons is shot from (0;0;0) towards the positive direction of the Z-axis. SR photons generated in the dipole field are propagated along the vacuum until absorbed. The simulation assumes that the beam pipe wall outside the vacuum is made of copper. 
+There is a simple 50-m-long vacuum of the beamline pipe. After 5 m of a drift space, there is a 5-m-long uniform dipole field region with 10 mrad of bending radius. A pencil beam of 18 GeV electrons is shot from (0;0;0) towards the positive direction of the Z-axis. SR photons generated in the dipole field are propagated along the vacuum until absorbed. The simulation assumes that the beam pipe wall outside the vacuum is made of copper.
 
 ![Alt text](pic.png)
 
@@ -56,3 +54,13 @@ There is a simple 50-m-long vacuum of the beamline pipe. After 5 m of a drift sp
 root -l -b -q ana.C   
 ```
 The script read the `Synrad+/ana/fileList.txt` file with the list of output Synrad+ simulation file names, and produces an output ROOT file used by the benchmark.
+
+## Contributing
+
+Contributions are welcome!
+
+## Contact
+
+For any questions or further information, please contact:
+
+- Andrii Natochii - <natochii@bnl.gov>
