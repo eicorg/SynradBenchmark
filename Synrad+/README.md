@@ -37,7 +37,7 @@ Please ensure that Synrad+, ROOT, and other dependencies are installed on your s
 1. Go to `Synrad+/sim`
 2. Run the Synrad+ graphic-user interface (GUI)
 3. Load the setup file called `simple_spec.syn` or `simple_diff.syn` for specular or diffuse photon reflection study, respectively
-4. Run the simulation and collect absorbed photon information into CSV files using the Synrad+ GUI menu: `Tools` --> `Particle logger` --> `Enable logging` (select the facet and the number of recorded hits)
+4. Run the simulation and collect absorbed photon information into CSV files using the Synrad+ GUI menu: `Tools` - `Particle logger` - `Enable logging` (select the facet and the number of recorded hits)
 
 For more detailes about how to run the simulation, collect data, define surface properties, please refer to [Synrad+ Documentation](https://molflow.web.cern.ch/node/110).
 
