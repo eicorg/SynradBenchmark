@@ -35,10 +35,10 @@ Furthermore, there is a code dedicated to analyzing the output data and building
 
 ## Installation
 
-### 1. Unzip the code 
+### 1. Clone 
 ```bash
-tar -xvf SynradG4.tar.gz
-cd SynradG4/
+git clone https://github.com/nat93/SynradBenchmark.git
+cd SynradBenchmark/SynradG4/
 ```
 
 ### 2. Install Dependencies
@@ -196,10 +196,6 @@ SynradG4/ana/
 ## Contributing
 
 Contributions are welcome!
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
 ## Contact
 
