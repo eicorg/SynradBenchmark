@@ -105,10 +105,10 @@ private:
 	void PrintReflectData(string name, vector<pair<double, vector<double>>> dataset,
 		vector<double> angle, vector<double> energy);
 	void FindClosestIndexesInVec(vector<double> vec, double val, int &id1, int &id2);
-	double FindReflectionProbabilityLogInt(vector<pair<double, vector<double>>> dataset,
+	double FindReflectionProbabilityLogLog(vector<pair<double, vector<double>>> dataset,
 		vector<double> angle, vector<double> energy, 
 		double angle_val, double energy_val);
-	double FindReflectionProbability(vector<pair<double, vector<double>>> dataset,
+	double FindReflectionProbabilityLinLin(vector<pair<double, vector<double>>> dataset,
 		vector<double> angle, vector<double> energy, 
 		double angle_val, double energy_val);
 	G4double Reflectivity(const G4double GamEner, const G4double SinIncidentAngle, const G4Material* theMat) const;
