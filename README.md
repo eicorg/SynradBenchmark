@@ -17,7 +17,7 @@ This repository aims to provide:
 
 Before using SynradBenchmark, ensure that you have the following dependencies installed:
 
-- [SynradG4](git@github.com:eicorg/SynradBenchmark.git)
+- [SynradG4](https://github.com/eicorg/SynradBenchmark.git)
 - [Synrad+](https://gitlab.cern.ch/molflow_synrad/synrad)
 - [Synrad3D](https://github.com/bmad-sim/bmad-ecosystem.git)
 - [Geant4 11.2.0](https://geant4.web.cern.ch/download/11.2.0.html)
