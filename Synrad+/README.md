@@ -22,7 +22,7 @@ Furthermore, there is a code dedicated to analyzing the output data and building
 
 ### 1. Clone 
 ```bash
-git clone https://github.com/nat93/SynradBenchmark.git
+git clone git@github.com:eicorg/SynradBenchmark.git
 cd SynradBenchmark/Synrad+/
 ```
 
