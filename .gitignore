@@ -6,6 +6,7 @@
 build*
 *.png
 *.txt
+!CMakeLists.txt
 *.csv
 *.digested*
 *.pdf

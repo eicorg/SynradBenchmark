@@ -53,9 +53,9 @@ TH1F* h6_vtx = new TH1F("h6_vtx","Vertex SR photon direction Y;Py_{#gamma}/E_{#g
 TH1F* h7_vtx = new TH1F("h7_vtx","Vertex SR photon direction Z;Pz_{#gamma}/E_{#gamma};Flux [ph/s]",4e6,-2,2);
 
 
-void ana(	TString outputFileName = "./output_spec/output_all.root", 
+void ana(	TString outputFileName = "./output_diff/output_all.root", 
 		TString fListName = "fileList.txt",
-		TString fDirName = "../sim/output_spec",
+		TString fDirName = "../sim/output_diff",
 		TString fOrbitName = "../sim/orbit.coord")
 {
 	// Get the list of input files
