@@ -2,7 +2,7 @@
 
 ## Overview
 
-SynradBenchmark is a benchmarking suite designed to evaluate the performance and accuracy of various Synrad-based codes, including SynradG4, Synrad+ (version 1.4.34), Synrad3D, and Geant4 (version 11.2.0). The primary focus of this repository is to benchmark photon reflection models in vacuum beam pipes, taking into account surface roughness and photon interactions.
+SynradBenchmark is a benchmarking suite designed to evaluate the performance and accuracy of various Monte-Carlo codes for sinchrotron radiation (SR) studies, including [SynradG4](https://doi.org/10.48550/arXiv.2408.11709), [Synrad+](https://molflow.web.cern.ch) (version 1.4.34 or older), [Synrad3D](https://www.classe.cornell.edu/bmad/manuals/synrad3d.pdf), and [Geant4](https://geant4.web.cern.ch) (version 11.2.0 or older). The primary focus of this repository is to benchmark SR photon reflection models in vacuum beam pipes, taking into account surface roughness and photon interactions.
 
 ## Goals
 

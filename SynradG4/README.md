@@ -13,7 +13,7 @@
 - [Contact](#contact)
 
 ## Project Description
-This project simulates the propagation of synchrotron radiation (SR) emitted by 18-GeV electrons through a vacuum beam pipe using the Geant4 toolkit. The primary goal is to model the interaction of SR photons with the beam pipe's material and calculate the reflection probability with different scattering models.
+This framework simulates the propagation of synchrotron radiation (SR) emitted by 18-GeV electrons through a vacuum beam pipe using the Geant4 toolkit. The primary goal is to model the interaction of SR photons with the beam pipe's material and calculate the reflection probability with different scattering models.
 
 Furthermore, there is a code dedicated to analyzing the output data and building histograms with absorbed SR photons on the vacuum beam pipe walls.
 
@@ -36,7 +36,7 @@ Furthermore, there is a code dedicated to analyzing the output data and building
 
 ### 1. Clone 
 ```bash
-git clone https://github.com/nat93/SynradBenchmark.git
+git clone git@github.com:eicorg/SynradBenchmark.git
 cd SynradBenchmark/SynradG4/
 ```
 
